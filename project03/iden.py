@@ -2,11 +2,37 @@ from prettytable import PrettyTable
 import calendar
 import string
 
-def printIndTable():
-    x = PrettyTable(field_names=['ID','Name','Gender','Birthday','Age','Alive','Death','Child','Spouse'])
-    x.align['ID'] = 'l'
-    x.padding_width = 1
-    with open('project03.ged') as f:
+
+class Individual:
+    def __init__(self, id, name, gender, birthday, age, alive, death, child, spouse):
+        self.id = id
+        self.name = name
+        self.gender = gender
+        self.birthday = birthday
+        self.age = age
+        self.alive = alive
+        self.death = death
+        self.child = child
+        self.spouse = spouse
+
+
+class Family:
+    def __init__(self, id, married, divorced, husband_id, husband_name, wife_id, wife_name, children):
+        self.id = id
+        self.married = married
+        self.divorced = divorced
+        self.husband_id = husband_id
+        self.husband_name = husband_name
+        self.wife_id = wife_id
+        self.wife_name = wife_name
+        self.children = children
+
+
+# get individual info from file
+# return list(Individual.obj)
+def read_ind_info(path):
+    res = []
+    with open(path) as f:
         list1 = []
         for idx,line in enumerate(f):
             a = line.strip()
@@ -14,7 +40,6 @@ def printIndTable():
             list1.append(b)
 
         for idx, item in enumerate(list1):
-
             if len(item) > 2 and item[2] == 'INDI':
                 id = item[1]
 
@@ -92,15 +117,26 @@ def printIndTable():
                 else:
                     Spouse = 'NA'
 
-                x.add_row([id.strip('@'), Name, Gender, Birthday, Age, Alive, Death, Child, Spouse])
+                indi = Individual(id.strip('@'), Name, Gender, Birthday, Age, Alive, Death, Child, Spouse)
+                res.append(indi)
 
-    return x
+    return res
 
-def printFamTable():
-    x = PrettyTable(field_names=['ID', 'Married', 'Divorced', 'Husband ID', 'Husband Name', 'Wife ID', 'Wife Name', 'Children'])
-    x.align['ID'] = 'l'
-    x.padding_width = 1
-    with open('project03.ged') as f:
+
+# create pretty table from ind_list
+def create_ind_table(ind_list):
+    table = PrettyTable(field_names=['ID', 'Name', 'Gender', 'Birthday', 'Age', 'Alive', 'Death', 'Child', 'Spouse'])
+    table.padding_width = 1
+    for ind in ind_list:
+        table.add_row([ind.id, ind.name, ind.gender, ind.birthday, ind.age, ind.alive, ind.death, ind.child, ind.spouse])
+    return table
+
+
+# get family info from file
+# return list(Family.obj)
+def read_fam_info(path):
+    res = []
+    with open(path) as f:
         list1 = []
         for idx,line in enumerate(f):
             a = line.strip()
@@ -154,14 +190,35 @@ def printFamTable():
 
                     else:
                         Child = 'NA'
-                    x.add_row([ID.strip('@'),Married,Divorced,HusbandID.strip('@'),HubbandName,WifeID.strip('@'),WifeName,Child])
-    return x
+                    res.append(Family(ID.strip('@'), Married, Divorced, HusbandID.strip('@'), HubbandName, WifeID.strip('@'), WifeName, Child))
+    return res
+
+
+# create pretty table from fam_list
+def creat_fam_table(fam_list):
+    table = PrettyTable(field_names=['ID', 'Married', 'Divorced', 'Husband ID', 'Husband Name', 'Wife ID', 'Wife Name', 'Children'])
+    table.padding_width = 1
+    for fam in fam_list:
+        table.add_row([fam.id, fam.married, fam.divorced, fam.husband_id, fam.husband_name, fam.wife_id, fam.wife_name, fam.children])
+    return table
+
 
 if __name__ == '__main__':
-    a = printIndTable()
-    b = printFamTable()
-    print(a)
-    print(b)
-    with open('output.txt', 'w') as file:
-        file.write(str(a))
-        file.write(str(b))
+
+    ind_list = read_ind_info('project03.ged')
+    ind_table = create_ind_table(ind_list)
+    print(ind_table)
+
+    fam_list = read_fam_info('project03.ged')
+    fam_table = creat_fam_table(fam_list)
+    print(fam_table)
+
+    # a = printIndTable()
+    # b = printFamTable()
+    # print(a)
+    # print(b)
+    #
+    # with open('output.txt', 'w') as file:
+    #     file.write(str(a))
+    #     file.write(str(b))
+
