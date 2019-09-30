@@ -88,10 +88,10 @@ def user_story_6(test_ind_list,test_fam_list):
                 res4 = "ERROR: FAMILY: US05: %s: Divorce %s after Wife's death %s" %(item.id,item.divorced,death)
                 res.append(item.wife_id)
                 res_error.append(res4)
-    return res
+    return res,res_error
 
 ## Author Yiming Xu
-def user_story_07(test_ind_list):
+def user_story_7(test_ind_list):
     res = []
     res_error = []
     for i in test_ind_list:
@@ -107,7 +107,7 @@ def user_story_07(test_ind_list):
     return res,res_error
 
 # Author Yiming Xu
-def user_story_08(test_ind_list,test_fam_list):
+def user_story_8(test_ind_list,test_fam_list):
     res = []
     res_error = []
     for i in test_ind_list:
@@ -134,7 +134,24 @@ if __name__ == '__main__':
     fam_table = iden.creat_fam_table(fam_list)
 
     # print(user_story_5(ind_list,fam_list))
-    # with open('output.txt', 'a') as file:
-    #     file.write(ind_table)
-    #     file.write(fam_table)
-    #     file.write()
+    with open('output.txt', 'a') as file:
+        file.write(str(ind_table))
+        file.write('\n')
+        file.write(str(fam_table))
+        file.write('\n')
+        res_error_4 = us_04(fam_list)[1]
+        for i in res_error_4:
+
+            file.write(str(i)+'\n')
+        res_error_5 = user_story_5(ind_list,fam_list)[1]
+        for i in res_error_5:
+            file.write(str(i)+'\n')
+        res_error_6 = user_story_6(ind_list,fam_list)[1]
+        for i in res_error_6:
+            file.write(str(i)+'\n')
+        res_error_7 = user_story_7(ind_list)[1]
+        for i in res_error_7:
+            file.write(str(i)+'\n')
+        res_error_8 = user_story_8(ind_list,fam_list)[1]
+        for i in res_error_8:
+            file.write(str(i)+'\n')
