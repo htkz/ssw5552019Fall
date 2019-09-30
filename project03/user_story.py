@@ -36,10 +36,10 @@ def user_story_5(test_ind_list,test_fam_list):
         id = i.id
         death = i.death
         for item in test_fam_list:
-            if item.husband_id == id and item.divorced == 'NA':
+            if item.husband_id == id and item.married == 'NA':
                 print(s1)
 
-            if item.wife_id == id and item.divorced == 'NA':
+            if item.wife_id == id and item.married == 'NA':
                 print(s1)
 
             if item.husband_id == id and item.married < death:
