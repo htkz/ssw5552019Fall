@@ -1,8 +1,6 @@
 import iden
 import unittest
-ind_list = iden.read_ind_info('project03.ged')
 
-fam_list = iden.read_fam_info('project03.ged')
 
 
 # return list of family id that divorced before married
@@ -29,52 +27,93 @@ def us_04(fam_list):
 
 # Author Yiming Xu
 def user_story_5(test_ind_list,test_fam_list):
-    res = None
+    s1 = 'Marriage before death'
+    res = []
     for i in test_ind_list:
         id = i.id
         death = i.death
         for item in test_fam_list:
+            if item.husband_id == id and item.divorced == 'NA':
+                print(s1)
+
+            if item.wife_id == id and item.divorced == 'NA':
+                print(s1)
+
             if item.husband_id == id and item.married < death:
-                print('Marriage before death')
-                res = 'Marriage before death'
+                print(s1)
+                res1 = 'Marriage before death'
             if item.husband_id == id and item.married > death:
                 print("ERROR: FAMILY: US05: %s: Marriage %s after Husband's death %s" %(item.id,item.married,death))
-                res = "ERROR: FAMILY: US05: %s: Marriage %s after Husband's death %s" % (item.id, item.married, death)
+                res1 = "ERROR: FAMILY: US05: %s: Marriage %s after Husband's death %s" % (item.id, item.married, death)
+                res.append(item.husband_id)
             if item.wife_id == id and item.married < death:
-                print('Marriage before death')
-                res='Marriage before death'
+                print(s1)
+
             if item.wife_id == id and item.married > death:
                 print("ERROR: FAMILY: US05: %s: Marriage %s after Wife's death %s" %(item.id,item.married,death))
-                res = "ERROR: FAMILY: US05: %s: Marriage %s after Wife's death %s" %(item.id,item.married,death)
+                res1 = "ERROR: FAMILY: US05: %s: Marriage %s after Wife's death %s" %(item.id,item.married,death)
+                res.append(s1)
     return res
 
-
 def user_story_07(test_ind_list):
-    res = None
+    res = []
     for i in test_ind_list:
         id = i.id
         if i.age > 150:
             print("ERROR: INDIVIDUAL: US07: %s: More than 150 years old - Birth date %s " %(id,i.birthday))
-            res = "ERROR: INDIVIDUAL: US07: %s: More than 150 years old - Birth date %s " %(id,i.birthday)
+            res1 = "ERROR: INDIVIDUAL: US07: %s: More than 150 years old - Birth date %s " %(id,i.birthday)
+            res.append(id)
         if i.age<150:
             print('Less than 150 years old')
-            res = 'Less than 150 years old'
+            res1 = 'Less than 150 years old'
     return res
 
 # Author Yiming Xu
 def user_story_08(test_ind_list,test_fam_list):
-    res = None
+    res = []
     for i in test_ind_list:
         id = i.id
         birth = i.birthday
         for item in test_fam_list:
             if id in item.children and item.married > birth:
                 print('ANOMALY: FAMILY: US08: %s: Child %s born before marriage on %s' %(item.ID,id,item.married))
-                res = 'ANOMALY: FAMILY: US08: %s: Child %s born before marriage on %s' %(item.ID,id,item.married)
+                res1 = 'ANOMALY: FAMILY: US08: %s: Child %s born before marriage on %s' %(item.ID,id,item.married)
+                res.append(item.id)
             if id in item.children and item.married < birth:
                 print('Birth before marriage of parents')
-                res = 'Birth before marriage of parents'
     return res
 
-user_story_08(ind_list,fam_list)
+# user_story_08(ind_list,fam_list)
 
+## Author Yiming Xu and Mo Sun
+## Pair Programming
+def user_story_6(test_ind_list,test_fam_list):
+    s1 = 'Divorce before death'
+    res = []
+    for i in test_ind_list:
+        id = i.id
+        death = i.death
+        for item in test_fam_list:
+            if item.husband_id == id and item.divorced == 'NA':
+                print(s1)
+            if item.wife_id == id and item.divorced == 'NA':
+                print(s1)
+            if item.husband_id == id and item.divorced < death:
+                print(s1)
+            if item.husband_id == id and item.divorced > death:
+                print("ERROR: FAMILY: US05: %s: Divorce %s after Husband's death %s" %(item.id,item.divorce,death))
+                res2 = "ERROR: FAMILY: US05: %s: Divorce %s after Husband's death %s" % (item.id, item.divorce, death)
+                res.append(item.husband_id)
+            if item.wife_id == id and item.divorced < death:
+                print(s1)
+            if item.wife_id == id and item.divorced > death:
+                print("ERROR: FAMILY: US05: %s: Divorce %s after Wife's death %s" %(item.id,item.divorced,death))
+                res4 = "ERROR: FAMILY: US05: %s: Divorce %s after Wife's death %s" %(item.id,item.divorced,death)
+                res.append(item.wife_id)
+    return res
+
+if __name__ == '__main__':
+    ind_list = iden.read_ind_info('project03.ged')
+
+    fam_list = iden.read_fam_info('project03.ged')
+    print(user_story_5(ind_list,fam_list))
