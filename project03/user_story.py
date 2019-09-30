@@ -36,10 +36,10 @@ def user_story_5(test_ind_list,test_fam_list):
         id = i.id
         death = i.death
         for item in test_fam_list:
-            if item.husband_id == id and item.married == 'NA':
+            if item.husband_id == id and i.death == 'NA':
                 print(s1)
 
-            if item.wife_id == id and item.married == 'NA':
+            if item.wife_id == id and i.death == 'NA':
                 print(s1)
 
             if item.husband_id == id and item.married < death:
@@ -74,11 +74,15 @@ def user_story_6(test_ind_list,test_fam_list):
                 print(s1)
             if item.wife_id == id and item.divorced == 'NA':
                 print(s1)
+            if item.husband_id == id and i.death == 'NA':
+                print(s1)
+            if item.wife_id == id and i.death == 'NA':
+                print(s1)
             if item.husband_id == id and item.divorced < death:
                 print(s1)
             if item.husband_id == id and item.divorced > death:
-                print("ERROR: FAMILY: US05: %s: Divorce %s after Husband's death %s" %(item.id,item.divorce,death))
-                res2 = "ERROR: FAMILY: US05: %s: Divorce %s after Husband's death %s" % (item.id, item.divorce, death)
+                print("ERROR: FAMILY: US05: %s: Divorce %s after Husband's death %s" %(item.id,item.divorced,death))
+                res2 = "ERROR: FAMILY: US05: %s: Divorce %s after Husband's death %s" % (item.id, item.divorced, death)
                 res.append(item.husband_id)
                 res_error.append(res2)
             if item.wife_id == id and item.divorced < death:
@@ -115,8 +119,8 @@ def user_story_8(test_ind_list,test_fam_list):
         birth = i.birthday
         for item in test_fam_list:
             if id in item.children and item.married > birth:
-                print('ANOMALY: FAMILY: US08: %s: Child %s born before marriage on %s' %(item.ID,id,item.married))
-                res0 = 'ANOMALY: FAMILY: US08: %s: Child %s born before marriage on %s' %(item.ID,id,item.married)
+                print('ANOMALY: FAMILY: US08: %s: Child %s born before marriage on %s' %(item.id,id,item.married))
+                res0 = 'ANOMALY: FAMILY: US08: %s: Child %s born before marriage on %s' %(item.id,id,item.married)
                 res_error.append(res0)
                 res.append(item.id)
             if id in item.children and item.married < birth:
