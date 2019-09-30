@@ -27,7 +27,7 @@ def us_04(fam_list):
                 res.append(fam.id)
     return res
 
-
+# Author Yiming Xu
 def user_story_5(test_ind_list,test_fam_list):
     res = None
     for i in test_ind_list:
@@ -61,6 +61,7 @@ def user_story_07(test_ind_list):
             res = 'Less than 150 years old'
     return res
 
+# Author Yiming Xu
 def user_story_08(test_ind_list,test_fam_list):
     res = None
     for i in test_ind_list:
