@@ -10,31 +10,42 @@ def record_error(id,message,res,res_error):
     res_error.append(message)
 
 def user_story_01(ind_list,fam_list):
-    res = [],res_error= []
+    res = []
+    res_error= []
     today = str(datetime.date.today())
     #check ind's birthday and death date
     for i in ind_list:
-        birthday = i.birthday, death = i.death, id = i.id
+        birthday = i.birthday
+        death = i.death
+        id = i.id
         #check birthday of ind
         if birthday > today:
-            message = "ERROR: INDIVIDUAL: US01: " + id + ": birthday " + birthday + " is before current date" + today
-        record_error(id,message,res,res_error)
+            message = "ERROR: INDIVIDUAL: US01: " + id + ": birthday " + birthday + " is before current date " + today
+            record_error(id,message,res,res_error)
         #check death date of ind
         if death != "NA" and death > today:
+<<<<<<< Updated upstream
             message = "ERROR: INDIVIDUAL: US01: " + id + ": death date " + death + " is before current date" + today
         record_error(id,message,res,res_error)
     
+=======
+            message = "ERROR: INDIVIDUAL: US01: " + id + ": death date " + death + " is before current date " + today
+            record_error(id,message,res,res_error)
+
+>>>>>>> Stashed changes
     #check fam's marriage date and divorce date
     for i in fam_list:
-        id = i.id, married = i.married, divorced = i.divorced
+        id = i.id
+        married = i.married
+        divorced = i.divorced
         #check marriage date
         if married != "NA" and married > today:
-            message = "ERROR: INDIVIDUAL: US01: " + id + ": marriage date " + married + " is before current date" + today
-        record_error(id,message,res,res_error)
+            message = "ERROR: INDIVIDUAL: US01: " + id + ": marriage date " + married + " is before current date " + today
+            record_error(id,message,res,res_error)
         #check divorce date
         if divorced != "NA" and divorced > today:
-            message = "ERROR: INDIVIDUAL: US01: " + id + ": divorce date " + married + " is before current date" + today
-        record_error(id,message,res,res_error)
+            message = "ERROR: INDIVIDUAL: US01: " + id + ": divorce date " + married + " is before current date " + today
+            record_error(id,message,res,res_error)
     return res,res_error
 
 
@@ -173,8 +184,7 @@ if __name__ == '__main__':
     fam_list = iden.read_fam_info('project03.ged')
     fam_table = iden.creat_fam_table(fam_list)
 
-    # print(user_story_5(ind_list,fam_list))
-    with open('output.txt', 'a') as file:
+    with open('output.txt', 'w') as file:
         file.write(str(ind_table))
         file.write('\n')
         file.write(str(fam_table))
