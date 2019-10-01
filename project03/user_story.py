@@ -1,7 +1,7 @@
 import iden
 import unittest
 import datetime
- 
+
 # user_story_1: Dates before current date
 # Author: Shaopeng Ge
 def record_error(id,message,res,res_error):
@@ -24,15 +24,10 @@ def user_story_01(ind_list,fam_list):
             record_error(id,message,res,res_error)
         #check death date of ind
         if death != "NA" and death > today:
-<<<<<<< Updated upstream
-            message = "ERROR: INDIVIDUAL: US01: " + id + ": death date " + death + " is before current date" + today
-        record_error(id,message,res,res_error)
-    
-=======
             message = "ERROR: INDIVIDUAL: US01: " + id + ": death date " + death + " is before current date " + today
             record_error(id,message,res,res_error)
 
->>>>>>> Stashed changes
+
     #check fam's marriage date and divorce date
     for i in fam_list:
         id = i.id
@@ -48,6 +43,59 @@ def user_story_01(ind_list,fam_list):
             record_error(id,message,res,res_error)
     return res,res_error
 
+
+# Author Qizhan Liu
+def us_02(ind_list, fam_list):
+    prompt = "Birth before marriage"
+    res = []
+    res_error = []
+    for fam in fam_list:
+        for ind in ind_list:
+            if fam.husband_name == ind.name:
+                birthday = ind.birthday
+                marriage = fam.married
+                birthday = birthday.split('-')
+                marriage = marriage.split('-')
+                wrong = False
+                for i in range(3):
+                    if int(marriage[i]) > int(birthday[i]):
+                        print(prompt)
+                        break
+                    if int(marriage[i]) < int(birthday[i]):
+                        wrong = True
+                        break
+                if wrong:
+                    print("ERROR: INDIVIDUAL: US02:" + ind.id + ": Married "
+                          + fam.married + " before born " + ind.birthday)
+                    res.append(ind.id)
+                    res_error.append("ERROR: INDIVIDUAL: US02:" + ind.id + ": Married "
+                                     + fam.married + " before born " + ind.birthday)
+    return res, res_error
+
+
+# Author Qizhan Liu and Shaopeng Ge
+def us_03(ind_list):
+    res = []
+    res_error = []
+    for ind in ind_list:
+        birthday = ind.birthday
+        death = ind.death
+        if death != 'NA':
+            birthday = birthday.split('-')
+            death = death.split('-')
+            wrong = False
+            for i in range(3):
+                if int(birthday[i]) <= int(death[i]):
+                    continue
+                if int(birthday[i]) > int(death[i]):
+                    wrong = True
+                    break
+            if wrong:
+                print("ERROR: INDIVIDUAL: US02: " + ind.id + ": Died " + ind.death + " before born" + ind.birthday)
+                res.append(ind.id)
+                res_error.append("ERROR: INDIVIDUAL: US02: " + ind.id + ": Died "
+                                 + ind.death + " before born" + ind.birthday)
+    return res, res_error
 
 
 # return list of family id that divorced before married
@@ -192,12 +240,12 @@ if __name__ == '__main__':
         res_error_1 = user_story_01(ind_list,fam_list)[1]
         for i in res_error_1:
             file.write(str(i)+'\n')
-        # res_error_2 = us_02(fam_list)[1]
-        # for i in res_error_2:
-        #     file.write(str(i)+'\n')
-        # res_error_3 = us_03(fam_list)[1]
-        # for i in res_error_3:
-        #     file.write(str(i)+'\n')
+        res_error_2 = us_02(ind_list, fam_list)[1]
+        for i in res_error_2:
+            file.write(str(i) + '\n')
+        res_error_3 = us_03(ind_list)[1]
+        for i in res_error_3:
+            file.write(str(i) + '\n')
         res_error_4 = us_04(fam_list)[1]
         for i in res_error_4:
             file.write(str(i)+'\n')

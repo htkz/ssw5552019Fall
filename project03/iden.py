@@ -34,7 +34,7 @@ def read_ind_info(path):
     res = []
     with open(path) as f:
         list1 = []
-        for idx,line in enumerate(f):
+        for idx, line in enumerate(f):
             a = line.strip()
             b = a.split(' ')
             list1.append(b)
@@ -46,13 +46,13 @@ def read_ind_info(path):
                 # print(id)
 
                 Name = ''
-                if list1[idx+1][1] == 'NAME':
+                if list1[idx + 1][1] == 'NAME':
                     for i in list1[idx + 1][2:]:
                         Name += str(i)
                 else:
                     Name = 'NA'
                 # print(Name)
-                if list1[idx+5][1] == 'SEX':
+                if list1[idx + 5][1] == 'SEX':
 
                     Gender = list1[idx + 5][2]
                 else:
@@ -60,25 +60,30 @@ def read_ind_info(path):
 
                 # print(Gender)
 
-                Birthday = list1[idx + 7][4] + '-' + str(list(calendar.month_abbr).index(string.capwords(list1[idx + 7][3]))) + '-' + \
+                Birthday = list1[idx + 7][4] + '-' + str(
+                    list(calendar.month_abbr).index(string.capwords(list1[idx + 7][3]))) + '-' + \
                            list1[idx + 7][2]
 
                 # print(Birthday)
                 if list1[idx + 8][1] == 'DEAT':
-                    Age = int(list1[idx + 9][4])-int(list1[idx + 7][4])
-                else:
-                    Age = 2019 - int(list1[idx + 7][4])
-
-                # print(Age)
-
-                if list1[idx + 8][1] == 'DEAT':
+                    Age = int(list1[idx + 9][4]) - int(list1[idx + 7][4])
                     Alive = False
                     Death = list1[idx + 9][4] + '-' + str(
                         list(calendar.month_abbr).index(string.capwords(list1[idx + 9][3]))) + '-' + list1[idx + 9][2]
                 else:
+                    Age = 2019 - int(list1[idx + 7][4])
                     Alive = True
                     Death = 'NA'
 
+                # print(Age)
+
+                # if list1[idx + 8][1] == 'DEAT':
+                #     Alive = False
+                #     Death = list1[idx + 9][4] + '-' + str(
+                #         list(calendar.month_abbr).index(string.capwords(list1[idx + 9][3]))) + '-' + list1[idx + 9][2]
+                # else:
+                #     Alive = True
+                #     Death = 'NA'
 
                 list2 = []
                 spouse = ''
@@ -93,14 +98,14 @@ def read_ind_info(path):
 
                 for index, items in enumerate(list1):
                     if items[1] == famid:
-                        Index = index+3
-                        while list1[Index][1]=='CHIL':
+                        Index = index + 3
+                        while list1[Index][1] == 'CHIL':
                             list2.append(list1[Index][2].strip('@'))
                             Index += 1
 
                 Child = ''
                 if list2 != []:
-                    Child = set(list2)
+                        Child = set(list2)
 
                 else:
                     Child = 'NA'
@@ -108,10 +113,10 @@ def read_ind_info(path):
                 spouse = []
                 for index, items in enumerate(list1):
                     if items[1] == famid:
-                        if list1[index+1][2] == id:
-                            spouse.append(list1[index+2][2].strip('@'))
-                        if list1[index+2][2] == id:
-                            spouse.append(list1[index+1][2].strip('@'))
+                        if list1[index + 1][2] == id:
+                            spouse.append(list1[index + 2][2].strip('@'))
+                        if list1[index + 2][2] == id:
+                            spouse.append(list1[index + 1][2].strip('@'))
                 if spouse != []:
                     Spouse = set(spouse)
                 else:
@@ -128,7 +133,8 @@ def create_ind_table(ind_list):
     table = PrettyTable(field_names=['ID', 'Name', 'Gender', 'Birthday', 'Age', 'Alive', 'Death', 'Child', 'Spouse'])
     table.padding_width = 1
     for ind in ind_list:
-        table.add_row([ind.id, ind.name, ind.gender, ind.birthday, ind.age, ind.alive, ind.death, ind.child, ind.spouse])
+        table.add_row(
+            [ind.id, ind.name, ind.gender, ind.birthday, ind.age, ind.alive, ind.death, ind.child, ind.spouse])
     return table
 
 
@@ -138,39 +144,39 @@ def read_fam_info(path):
     res = []
     with open(path) as f:
         list1 = []
-        for idx,line in enumerate(f):
+        for idx, line in enumerate(f):
             a = line.strip()
             b = a.split(' ')
             list1.append(b)
 
-        for idx,item in enumerate(list1):
+        for idx, item in enumerate(list1):
             ID = ''
-            if len(item)>2 and item[2] == 'FAM':
+            if len(item) > 2 and item[2] == 'FAM':
                 ID = item[1]
 
-            for index,items in enumerate(list1):
+            for index, items in enumerate(list1):
                 Married = ''
                 Divorced = ''
                 if items[1] == ID:
-                    Index = index+3
+                    Index = index + 3
                     while list1[Index][1] != 'MARR':
                         Index += 1
                     Married = list1[Index + 1][4] + '-' + str(
-                        list(calendar.month_abbr).index(string.capwords(list1[Index+1][3]))) + '-' + \
-                               list1[Index+1][2]
-                    if list1[Index+2][1] == 'DIV':
+                        list(calendar.month_abbr).index(string.capwords(list1[Index + 1][3]))) + '-' + \
+                              list1[Index + 1][2]
+                    if list1[Index + 2][1] == 'DIV':
                         Divorced = list1[Index + 3][4] + '-' + str(
                             list(calendar.month_abbr).index(string.capwords(list1[Index + 3][3]))) + '-' + \
-                                  list1[Index + 3][2]
+                                   list1[Index + 3][2]
                     else:
-                        Divorced ='NA'
-                    HusbandID = list1[index+1][2]
-                    WifeID = list1[index+2][2]
-                    HubbandName = ''
-                    for num,thing in enumerate(list1):
-                        if thing[1]==HusbandID:
+                        Divorced = 'NA'
+                    HusbandID = list1[index + 1][2]
+                    WifeID = list1[index + 2][2]
+                    HusbandName = ''
+                    for num, thing in enumerate(list1):
+                        if thing[1] == HusbandID:
                             for i in list1[num + 1][2:]:
-                                HubbandName += str(i)
+                                HusbandName += str(i)
                     WifeName = ''
                     for num, thing in enumerate(list1):
                         if thing[1] == WifeID:
@@ -184,32 +190,34 @@ def read_fam_info(path):
                                 list2.append(list1[Num][2].strip('@'))
                                 Num += 1
 
-
                     if list2 != []:
                         Child = set(list2)
 
                     else:
                         Child = 'NA'
-                    res.append(Family(ID.strip('@'), Married, Divorced, HusbandID.strip('@'), HubbandName, WifeID.strip('@'), WifeName, Child))
+                    res.append(
+                        Family(ID.strip('@'), Married, Divorced, HusbandID.strip('@'), HusbandName, WifeID.strip('@'),
+                               WifeName, Child))
     return res
 
 
 # create pretty table from fam_list
 def creat_fam_table(fam_list):
-    table = PrettyTable(field_names=['ID', 'Married', 'Divorced', 'Husband ID', 'Husband Name', 'Wife ID', 'Wife Name', 'Children'])
+    table = PrettyTable(
+        field_names=['ID', 'Married', 'Divorced', 'Husband ID', 'Husband Name', 'Wife ID', 'Wife Name', 'Children'])
     table.padding_width = 1
     for fam in fam_list:
-        table.add_row([fam.id, fam.married, fam.divorced, fam.husband_id, fam.husband_name, fam.wife_id, fam.wife_name, fam.children])
+        table.add_row([fam.id, fam.married, fam.divorced, fam.husband_id, fam.husband_name, fam.wife_id, fam.wife_name,
+                       fam.children])
     return table
 
 
 if __name__ == '__main__':
-
-    ind_list = read_ind_info('project03.ged')
+    ind_list = read_ind_info('project03\project03.ged')
     ind_table = create_ind_table(ind_list)
     print(ind_table)
 
-    fam_list = read_fam_info('project03.ged')
+    fam_list = read_fam_info('project03\project03.ged')
     fam_table = creat_fam_table(fam_list)
     print(fam_table)
 
@@ -221,4 +229,3 @@ if __name__ == '__main__':
     # with open('output.txt', 'w') as file:
     #     file.write(str(a))
     #     file.write(str(b))
-
