@@ -1,5 +1,41 @@
 import iden
 import unittest
+import datetime
+ 
+# user_story_1: Dates before current date
+# Author: Shaopeng Ge
+def record_error(id,message,res,res_error):
+    print(message)
+    res.append(id)
+    res_error.append(message)
+
+def user_story_01(ind_list,fam_list):
+    res = [],res_error= []
+    today = str(datetime.date.today())
+    #check ind's birthday and death date
+    for i in ind_list:
+        birthday = i.birthday, death = i.death, id = i.id
+        #check birthday of ind
+        if birthday > today:
+            message = "ERROR: INDIVIDUAL: US01: " + id + ": birthday " + birthday + " is before current date" + today
+        record_error(id,message,res,res_error)
+        #check death date of ind
+        if death != "NA" and death > today:
+            message = "ERROR: INDIVIDUAL: US01: " + id + ": death date " + death + " is before current date" + today
+        record_error(id,message,res,res_error)
+    
+    #check fam's marriage date and divorce date
+    for i in fam_list:
+        id = i.id, married = i.married, divorced = i.divorced
+        #check marriage date
+        if married != "NA" and married > today:
+            message = "ERROR: INDIVIDUAL: US01: " + id + ": marriage date " + married + " is before current date" + today
+        record_error(id,message,res,res_error)
+        #check divorce date
+        if divorced != "NA" and divorced > today:
+            message = "ERROR: INDIVIDUAL: US01: " + id + ": divorce date " + married + " is before current date" + today
+        record_error(id,message,res,res_error)
+    return res,res_error
 
 
 
@@ -143,9 +179,17 @@ if __name__ == '__main__':
         file.write('\n')
         file.write(str(fam_table))
         file.write('\n')
+        res_error_1 = user_story_01(ind_list,fam_list)[1]
+        for i in res_error_1:
+            file.write(str(i)+'\n')
+        # res_error_2 = us_02(fam_list)[1]
+        # for i in res_error_2:
+        #     file.write(str(i)+'\n')
+        # res_error_3 = us_03(fam_list)[1]
+        # for i in res_error_3:
+        #     file.write(str(i)+'\n')
         res_error_4 = us_04(fam_list)[1]
         for i in res_error_4:
-
             file.write(str(i)+'\n')
         res_error_5 = user_story_5(ind_list,fam_list)[1]
         for i in res_error_5:
