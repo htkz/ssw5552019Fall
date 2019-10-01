@@ -176,8 +176,8 @@ def user_story_6(test_ind_list,test_fam_list):
             if item.husband_id == id and item.divorced < death:
                 print(s1)
             if item.husband_id == id and item.divorced > death:
-                print("ERROR: FAMILY: US05: %s: Divorce %s after Husband's death %s" %(item.id,item.divorced,death))
-                res2 = "ERROR: FAMILY: US05: %s: Divorce %s after Husband's death %s" % (item.id, item.divorced, death)
+                print("ERROR: FAMILY: US06: %s: Divorce %s after Husband's death %s" %(item.id,item.divorced,death))
+                res2 = "ERROR: FAMILY: US06: %s: Divorce %s after Husband's death %s" % (item.id, item.divorced, death)
                 res.append(item.husband_id)
                 res_error.append(res2)
             if item.wife_id == id and item.divorced < death:
