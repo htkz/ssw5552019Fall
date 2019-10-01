@@ -40,6 +40,7 @@ def user_story_01(ind_list,fam_list):
 
 # Author Qizhan Liu
 def us_02(ind_list, fam_list):
+    prompt = "Birth before marriage"
     res = []
     res_error = []
     for fam in fam_list:
@@ -52,6 +53,7 @@ def us_02(ind_list, fam_list):
                 wrong = False
                 for i in range(3):
                     if int(marriage[i]) > int(birthday[i]):
+                        print(prompt)
                         break
                     if int(marriage[i]) < int(birthday[i]):
                         wrong = True
@@ -233,12 +235,12 @@ if __name__ == '__main__':
         res_error_1 = user_story_01(ind_list,fam_list)[1]
         for i in res_error_1:
             file.write(str(i)+'\n')
-        # res_error_2 = us_02(fam_list)[1]
-        # for i in res_error_2:
-        #     file.write(str(i)+'\n')
-        # res_error_3 = us_03(fam_list)[1]
-        # for i in res_error_3:
-        #     file.write(str(i)+'\n')
+        res_error_2 = us_02(ind_list, fam_list)[1]
+        for i in res_error_2:
+            file.write(str(i) + '\n')
+        res_error_3 = us_03(ind_list)[1]
+        for i in res_error_3:
+            file.write(str(i) + '\n')
         res_error_4 = us_04(fam_list)[1]
         for i in res_error_4:
             file.write(str(i)+'\n')
