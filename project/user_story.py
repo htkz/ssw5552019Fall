@@ -35,11 +35,11 @@ def user_story_01(ind_list,fam_list):
         divorced = i.divorced
         #check marriage date
         if married != "NA" and married > today:
-            message = "ERROR: INDIVIDUAL: US01: " + id + ": marriage date " + married + " is before current date " + today
+            message = "ERROR: FAMILY: US01: " + id + ": marriage date " + married + " is before current date " + today
             record_error(id,message,res,res_error)
         #check divorce date
         if divorced != "NA" and divorced > today:
-            message = "ERROR: INDIVIDUAL: US01: " + id + ": divorce date " + married + " is before current date " + today
+            message = "ERROR: FAMILY: US01: " + id + ": divorce date " + married + " is before current date " + today
             record_error(id,message,res,res_error)
     return res,res_error
 
@@ -65,10 +65,10 @@ def us_02(ind_list, fam_list):
                         wrong = True
                         break
                 if wrong:
-                    print("ERROR: INDIVIDUAL: US02:" + ind.id + ": Married "
+                    print("ERROR: INDIVIDUAL: US02: " + ind.id + ": Married "
                           + fam.married + " before born " + ind.birthday)
                     res.append(ind.id)
-                    res_error.append("ERROR: INDIVIDUAL: US02:" + ind.id + ": Married "
+                    res_error.append("ERROR: INDIVIDUAL: US02: " + ind.id + ": Married "
                                      + fam.married + " before born " + ind.birthday)
     return res, res_error
 
@@ -91,9 +91,9 @@ def us_03(ind_list):
                     wrong = True
                     break
             if wrong:
-                print("ERROR: INDIVIDUAL: US02: " + ind.id + ": Died " + ind.death + " before born" + ind.birthday)
+                print("ERROR: INDIVIDUAL: US03: " + ind.id + ": Died " + ind.death + " before born" + ind.birthday)
                 res.append(ind.id)
-                res_error.append("ERROR: INDIVIDUAL: US02: " + ind.id + ": Died "
+                res_error.append("ERROR: INDIVIDUAL: US03: " + ind.id + ": Died "
                                  + ind.death + " before born" + ind.birthday)
     return res, res_error
 
@@ -214,8 +214,8 @@ def user_story_8(test_ind_list,test_fam_list):
         birth = i.birthday
         for item in test_fam_list:
             if id in item.children and item.married > birth:
-                print('ANOMALY: FAMILY: US08: %s: Child %s born before marriage on %s' %(item.id,id,item.married))
-                res0 = 'ANOMALY: FAMILY: US08: %s: Child %s born before marriage on %s' %(item.id,id,item.married)
+                print('ERROR: FAMILY: US08: %s: Child %s born before parents marriage on %s' %(item.id,id,item.married))
+                res0 = 'ERROR: FAMILY: US08: %s: Child %s born before parents marriage on %s' %(item.id,id,item.married)
                 res_error.append(res0)
                 res.append(item.id)
             if id in item.children and item.married < birth:
