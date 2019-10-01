@@ -214,8 +214,8 @@ def user_story_8(test_ind_list,test_fam_list):
         birth = i.birthday
         for item in test_fam_list:
             if id in item.children and item.married > birth:
-                print('ERROR: FAMILY: US08: %s: Child %s born before parents marriage on %s' %(item.id,id,item.married))
-                res0 = 'ERROR: FAMILY: US08: %s: Child %s born before parents marriage on %s' %(item.id,id,item.married)
+                print('ANOMALY: FAMILY: US08: %s: Child %s born before parents marriage on %s' %(item.id,id,item.married))
+                res0 = 'ANOMALY: FAMILY: US08: %s: Child %s born before parents marriage on %s' %(item.id,id,item.married)
                 res_error.append(res0)
                 res.append(item.id)
             if id in item.children and item.married < birth:
