@@ -213,11 +213,11 @@ def creat_fam_table(fam_list):
 
 
 if __name__ == '__main__':
-    ind_list = read_ind_info('project03\project03.ged')
+    ind_list = read_ind_info('project03.ged')
     ind_table = create_ind_table(ind_list)
     print(ind_table)
 
-    fam_list = read_fam_info('project03\project03.ged')
+    fam_list = read_fam_info('project03.ged')
     fam_table = creat_fam_table(fam_list)
     print(fam_table)
 
