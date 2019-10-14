@@ -1,6 +1,7 @@
 import iden
 import unittest
-import datetime
+from datetime import datetime, timedelta
+
 
 # user_story_1: Dates before current date
 # Author: Shaopeng Ge
@@ -12,7 +13,7 @@ def record_error(id,message,res,res_error):
 def user_story_01(ind_list,fam_list):
     res = []
     res_error= []
-    today = str(datetime.date.today())
+    today = str(datetime.today())
     #check ind's birthday and death date
     for i in ind_list:
         birthday = i.birthday
@@ -51,7 +52,7 @@ def us_02(ind_list, fam_list):
     res_error = []
     for fam in fam_list:
         for ind in ind_list:
-            if fam.husband_name == ind.name:
+            if fam.husband_name == ind.name or fam.wife_name == ind.name:
                 birthday = ind.birthday
                 marriage = fam.married
                 birthday = birthday.split('-')
@@ -139,7 +140,6 @@ def user_story_5(test_ind_list,test_fam_list):
 
             if item.husband_id == id and item.married < death:
                 print(s1)
-                res1 = 'Marriage before death'
             if item.husband_id == id and item.married > death:
                 print("ERROR: FAMILY: US05: %s: Marriage %s after Husband's death %s" %(item.id,item.married,death))
                 res0 = "ERROR: FAMILY: US05: %s: Marriage %s after Husband's death %s" % (item.id, item.married, death)
@@ -222,8 +222,87 @@ def user_story_8(test_ind_list,test_fam_list):
                 print('Birth before marriage of parents')
     return res,res_error
 
-# user_story_08(ind_list,fam_list)
+# Author Shaopeng Ge
+def user_story_9(ind_list):
+    res = []
+    res_error = []
+    for ind in ind_list:
+        if ind.death != 'NA' and ind.child != 'NA':
+            death = ind.death
+            for kid in ind.child:
+                for i in ind_list:
+                    if i.id == kid:
+                        birthday = i.birthday 
+                        if ind.gender == 'M':
+                            if (datetime.strptime(birthday, '%Y-%m-%d') > (datetime.strptime(death, '%Y-%m-%d') + timedelta(days=270))):
+                                message = "ERROR: INDIVIDUAL: US09: " + i.id + ": birthday " + birthday + " is not before 9 months after father's death " + death
+                                record_error(i.id,message,res,res_error)
+                        else:
+                            if death < birthday:
+                                message = "ERROR: INDIVIDUAL: US09: " + i.id + ": birthday " + birthday + " is after mother's death " + death
+                                record_error(i.id,message,res,res_error)
+    return res, res_error
+                            
+# Author Shaopeng Ge
+def user_story_10(ind_list,fam_list):
+    res = []
+    res_error = []
+    for fam in fam_list:
+        if fam.married != 'NA':
+            marriage = fam.married
+            Husband = fam.husband_id
+            Wife = fam.wife_id
+            for ind in ind_list:
+                if ind.id == Husband:
+                    birthday = ind.birthday
+                    if (datetime.strptime(marriage, '%Y-%m-%d') < (datetime.strptime(birthday, '%Y-%m-%d') + timedelta(days=14*365))):
+                        message = "ERROR: INDIVIDUAL: US10: " + ind.id + ": marriage " + marriage + " before 14 years old"
+                        record_error(ind.id,message,res,res_error)
+                if ind.id == Wife:
+                    birthday = ind.birthday
+                    if (datetime.strptime(marriage, '%Y-%m-%d') < (datetime.strptime(birthday, '%Y-%m-%d') + timedelta(days=14*365))):
+                        message = "ERROR: INDIVIDUAL: US10: " + ind.id + ": marriage " + marriage + " before 14 years old"
+                        record_error(ind.id,message,res,res_error)
+    return res, res_error
 
+# Author Qizhan Liu
+def user_story_11(ind_list,fam_list):
+    pass
+# Author Qizhan Liu
+def user_story_12(ind_list):
+    res = []
+    res_error = []
+    for ind in ind_list:
+        if ind.child != 'NA':
+            for kid in ind.child:
+                for i in ind_list:
+                    if i.id == kid:
+                        if ind.gender == 'F':
+                            if ((datetime.strptime(ind.birthday, '%Y-%m-%d') - datetime.strptime(i.birthday, '%Y-%m-%d')) > timedelta(days=365*60)):
+                                message = "ERROR: INDIVIDUAL: US012: " + ind.id + " is more than 60 years older than her child " + i.id
+                                record_error(ind.id,message,res,res_error)
+                        else:
+                            if ((datetime.strptime(ind.birthday, '%Y-%m-%d') - datetime.strptime(i.birthday, '%Y-%m-%d')) > timedelta(days=365*80)):
+                                message = "ERROR: INDIVIDUAL: US012: " + ind.id + " is more than 80 years older than his child " + i.id
+                                record_error(ind.id,message,res,res_error)
+    return res, res_error
+
+
+# Author Mo Sun
+def user_story_13(ind_list,fam_list):
+    pass
+
+# Author Mo Sun
+def user_story_14(ind_list,fam_list):
+    pass
+
+# Author Yiming Xu
+def user_story_15(ind_list,fam_list):
+    pass
+
+# Author Yiming Xu
+def user_story_16(ind_list,fam_list):
+    pass
 
 
 if __name__ == '__main__':
@@ -231,33 +310,25 @@ if __name__ == '__main__':
     ind_table = iden.create_ind_table(ind_list)
     fam_list = iden.read_fam_info('project03.ged')
     fam_table = iden.creat_fam_table(fam_list)
-
+    
     with open('output.txt', 'w') as file:
         file.write(str(ind_table))
         file.write('\n')
         file.write(str(fam_table))
         file.write('\n')
-        res_error_1 = user_story_01(ind_list,fam_list)[1]
-        for i in res_error_1:
-            file.write(str(i)+'\n')
-        res_error_2 = us_02(ind_list, fam_list)[1]
-        for i in res_error_2:
-            file.write(str(i) + '\n')
-        res_error_3 = us_03(ind_list)[1]
-        for i in res_error_3:
-            file.write(str(i) + '\n')
-        res_error_4 = us_04(fam_list)[1]
-        for i in res_error_4:
-            file.write(str(i)+'\n')
-        res_error_5 = user_story_5(ind_list,fam_list)[1]
-        for i in res_error_5:
-            file.write(str(i)+'\n')
-        res_error_6 = user_story_6(ind_list,fam_list)[1]
-        for i in res_error_6:
-            file.write(str(i)+'\n')
-        res_error_7 = user_story_7(ind_list)[1]
-        for i in res_error_7:
-            file.write(str(i)+'\n')
-        res_error_8 = user_story_8(ind_list,fam_list)[1]
-        for i in res_error_8:
-            file.write(str(i)+'\n')
+        def writedowm(res_error):
+            for i in res_error:
+                file.write(str(i) + '\n')
+
+        writedowm(user_story_01(ind_list,fam_list)[1])
+        writedowm(us_02(ind_list, fam_list)[1])
+        writedowm(us_03(ind_list)[1])
+        writedowm(us_04(fam_list)[1])
+        writedowm(user_story_5(ind_list,fam_list)[1])
+        writedowm(user_story_6(ind_list,fam_list)[1])
+        writedowm(user_story_7(ind_list)[1])
+        writedowm(user_story_8(ind_list,fam_list)[1])
+        writedowm(user_story_9(ind_list)[1])   
+        writedowm(user_story_10(ind_list,fam_list)[1])
+
+        writedowm(user_story_12(ind_list)[1])

@@ -1,8 +1,8 @@
 +----+---------+--------+-----------+-----+-------+----------+--------------------+--------+
 | ID |   Name  | Gender |  Birthday | Age | Alive |  Death   |       Child        | Spouse |
 +----+---------+--------+-----------+-----+-------+----------+--------------------+--------+
-| I1 | San/Xu/ |   M    |  1966-1-1 |  53 |  True |    NA    | {'I3', 'I4', 'I5'} | {'I2'} |
-| I2 |  Er/Xu/ |   F    |  1970-1-1 |  49 |  True |    NA    | {'I3', 'I4', 'I5'} | {'I1'} |
+| I1 | San/Xu/ |   M    |  1966-1-1 |  53 |  True |    NA    | {'I5', 'I4', 'I3'} | {'I2'} |
+| I2 |  Er/Xu/ |   F    |  1970-1-1 |  49 |  True |    NA    | {'I5', 'I4', 'I3'} | {'I1'} |
 | I3 |  Yi/Xu/ |   M    | 1900-3-28 | 119 |  True |    NA    |         NA         |   NA   |
 | I4 |  Si/Xu/ |   F    |  2020-1-1 |  -1 |  True |    NA    |         NA         |   NA   |
 | I5 |  Wu/Xu/ |   M    |  2004-1-1 |  15 |  True |    NA    |         NA         |   NA   |
@@ -12,14 +12,19 @@
 +----+----------+----------+------------+--------------+---------+-----------+--------------------+
 | ID | Married  | Divorced | Husband ID | Husband Name | Wife ID | Wife Name |      Children      |
 +----+----------+----------+------------+--------------+---------+-----------+--------------------+
-| F1 | 1960-1-1 |    NA    |     I1     |   San/Xu/    |    I2   |   Er/Xu/  | {'I3', 'I4', 'I5'} |
+| F1 | 1960-1-1 |    NA    |     I1     |   San/Xu/    |    I2   |   Er/Xu/  | {'I5', 'I4', 'I3'} |
 | F2 | 1963-1-1 | 1962-1-1 |     I6     |    Qi/Xu/    |    I7   |  Liu/Xu/  |       {'I1'}       |
 +----+----------+----------+------------+--------------+---------+-----------+--------------------+
-ERROR: INDIVIDUAL: US01: I4: birthday 2020-1-1 is before current date 2019-10-03
+ERROR: INDIVIDUAL: US01: I4: birthday 2020-1-1 is before current date 2019-10-13 20:08:04.924816
 ERROR: INDIVIDUAL: US02: I1: Married 1960-1-1 before born 1966-1-1
+ERROR: INDIVIDUAL: US02: I2: Married 1960-1-1 before born 1970-1-1
 ERROR: INDIVIDUAL: US03: I6: Died 1930-1-1 before born1942-1-1
 ERROR: FAMILY: US04: F2: Divorced 1962-1-1 before married 1963-1-1
 ERROR: FAMILY: US05: F2: Marriage 1963-1-1 after Husband's death 1930-1-1
 ERROR: FAMILY: US06: F2: Divorce 1962-1-1 after Husband's death 1930-1-1
 ERROR: INDIVIDUAL: US07: I7: More than 150 years old - Birth date 1840-1-1 
 ANOMALY: FAMILY: US08: F1: Child I3 born before parents marriage on 1960-1-1
+ERROR: INDIVIDUAL: US09: I1: birthday 1966-1-1 is not before 9 months after father's death 1930-1-1
+ERROR: INDIVIDUAL: US10: I1: marriage 1960-1-1 before 14 years old
+ERROR: INDIVIDUAL: US10: I2: marriage 1960-1-1 before 14 years old
+ERROR: INDIVIDUAL: US012: I2is more than 60 years older than her childI3

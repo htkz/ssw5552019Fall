@@ -126,7 +126,41 @@ class TestUserStory(unittest.TestCase):
         test_list1.append(iden.Family('F1','1995-1-1',None,'I1',None,'I2',None,{'I1','I2'}))
         result = user_story.user_story_8(test_list,test_list1)[0]
         self.assertEqual(result,['F1'])
+    
+    #test for code of us09
+    def test_us09_01(self):
+        result = user_story.user_story_9(iden_list)[0]
+        self.assertEqual(result, ['I1'])
 
+    #test for code of us10
+    def test_us10_01(self):
+        result = user_story.user_story_10(iden_list, fam_list)[0]
+        self.assertEqual(result, ['I1','I2'])
+    
+    #test for code of us11
+    def test_us11_01(self):
+        pass
+
+    #test for code of us12
+    def test_us12_01(self):
+        result = user_story.user_story_12(iden_list)[0]
+        self.assertEqual(result, ['I2'])
+    
+    #test for code of us13
+    def test_us13_01(self):
+        pass
+    
+    #test for code of us14
+    def test_us14_01(self):
+        pass
+
+    #test for code of us15
+    def test_us15_01(self):
+        pass
+
+    #test for code of us16
+    def test_us16_01(self):
+        pass
 
 if __name__ == '__main__':
     unittest. main()
