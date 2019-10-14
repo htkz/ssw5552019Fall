@@ -1,6 +1,6 @@
 import iden
 import unittest
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, date
 
 
 # user_story_1: Dates before current date
@@ -13,7 +13,7 @@ def record_error(id,message,res,res_error):
 def user_story_01(ind_list,fam_list):
     res = []
     res_error= []
-    today = str(datetime.today())
+    today = str(date.today())
     #check ind's birthday and death date
     for i in ind_list:
         birthday = i.birthday
@@ -304,11 +304,11 @@ def user_story_12(ind_list):
                 for i in ind_list:
                     if i.id == kid:
                         if ind.gender == 'F':
-                            if ((datetime.strptime(ind.birthday, '%Y-%m-%d') - datetime.strptime(i.birthday, '%Y-%m-%d')) > timedelta(days=365*60)):
+                            if ((datetime.strptime(i.birthday, '%Y-%m-%d') - datetime.strptime(ind.birthday, '%Y-%m-%d')) > timedelta(days=365*60)):
                                 message = "ERROR: INDIVIDUAL: US012: " + ind.id + " is more than 60 years older than her child " + i.id
                                 record_error(ind.id,message,res,res_error)
                         else:
-                            if ((datetime.strptime(ind.birthday, '%Y-%m-%d') - datetime.strptime(i.birthday, '%Y-%m-%d')) > timedelta(days=365*80)):
+                            if ((datetime.strptime(i.birthday, '%Y-%m-%d') - datetime.strptime(ind.birthday, '%Y-%m-%d')) > timedelta(days=365*80)):
                                 message = "ERROR: INDIVIDUAL: US012: " + ind.id + " is more than 80 years older than his child " + i.id
                                 record_error(ind.id,message,res,res_error)
     return res, res_error
@@ -330,7 +330,7 @@ def user_story_13(ind_list,fam_list):
             if len(birthday) > 1:
                 for i in range(len(birthday)-1):
                     for j in range(i+1,len(birthday)):
-                        datedif1 = (abs(datetime.strptime(birthday[i], '%Y-%m-%d') - datetime.strptime(birthday[j], '%Y-%m-%d')) > timedelta(days=2))
+                        datedif1 = (abs(datetime.strptime(birthday[i], '%Y-%m-%d') - datetime.strptime(birthday[j], '%Y-%m-%d')) >= timedelta(days=2))
                         datedif2 = (abs(datetime.strptime(birthday[i], '%Y-%m-%d') - datetime.strptime(birthday[j], '%Y-%m-%d')) < timedelta(days=240))
                         if datedif1 and datedif2 :
                             message = "ERROR: FAMILY: US013: in " + fam.id + ", Siblings spacing between " + children[i] + " and " + children[j] + " are wrong"
@@ -351,27 +351,44 @@ def user_story_14(ind_list,fam_list):
                     if ind.id == child:
                         children.append(ind.id)
                         birthday.append(ind.birthday)
-            if len(birthday) > 1:
-                for i in range(len(birthday)-1):
+            if len(birthday) > 5:
+                for i in range(len(birthday)-4):
                     if find == True:
                         break
-                    count = 0
+                    count = 1
                     for j in range(i+1,len(birthday)):
                         if (datetime.strptime(birthday[i], '%Y-%m-%d') == datetime.strptime(birthday[j], '%Y-%m-%d')):
                             count += 1
                         if count > 5:
-                            message = "ERROR: FAMILY: US013: in " + fam.id + ", more than five siblings borned at the same time"
+                            message = "ERROR: FAMILY: US014: in " + fam.id + ", more than five siblings borned at the same time " + birthday[i]
                             record_error(fam.id,message,res,res_error)
-                            find = True                
+                            find = True  
+                            break              
     return res, res_error
 
 # Author Yiming Xu
-def user_story_15(ind_list,fam_list):
-    pass
+def user_story_15(fam_list):
+    res = []
+    res_error = []
+    for fam in fam_list:
+        if len(fam.children) >= 15:
+            message = "ERROR: FAMILY: US015: in " + fam.id + ", more than 14 siblings in a family"
+            record_error(fam.id,message,res,res_error)
+    return res, res_error
 
 # Author Yiming Xu
 def user_story_16(ind_list,fam_list):
-    pass
+    res = []
+    res_error = []
+    for fam in fam_list:
+        familyName = fam.husband_name.split('/')[1]
+        for ind in ind_list:
+            if ind.id in fam.children and ind.gender == "M":
+                if ind.name.split('/')[1] != familyName:
+                    message = "ERROR: FAMILY: US016: in " + fam.id + ", not all male members of a family have the same last name"
+                    record_error(fam.id,message,res,res_error)
+                    break
+    return res, res_error
 
 
 if __name__ == '__main__':
@@ -402,3 +419,6 @@ if __name__ == '__main__':
         writedowm(user_story_11(ind_list,fam_list)[1])
         writedowm(user_story_12(ind_list)[1])
         writedowm(user_story_13(ind_list,fam_list)[1])
+        writedowm(user_story_14(ind_list,fam_list)[1])
+        writedowm(user_story_15(fam_list)[1])
+        writedowm(user_story_16(ind_list,fam_list)[1])
