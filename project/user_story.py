@@ -267,7 +267,33 @@ def user_story_10(ind_list,fam_list):
 
 # Author Qizhan Liu
 def user_story_11(ind_list,fam_list):
-    pass
+    res = []
+    res_error = []
+    for fam in fam_list:
+        if fam.divorced != 'NA':
+            divorced = fam.divorced
+            husband_id = fam.husband_id
+            wife_id = fam.wife_id
+            for ind in ind_list:
+                if ind.id == husband_id:
+                    spouse_id = ind.spouse.pop()
+                    if spouse_id != wife_id:
+                        for fam2 in fam_list:
+                            if fam2.wife_id == spouse_id:
+                                if fam2.married < divorced:
+                                    message = "ERROR: FAMILY: US011: in " + fam.id + ", "+ ind.id + " remarriage " + fam2.married + " before divorce "+ divorced
+                                    record_error(ind.id,message,res,res_error)
+                                    break
+                if ind.id == wife_id:
+                    spouse_id = ind.spouse.pop()
+                    if spouse_id != husband_id:
+                        for fam2 in fam_list:
+                            if fam2.husband_id == spouse_id:
+                                if fam2.married < divorced:
+                                    message = "ERROR: FAMILY: US011: in " + fam.id + ", "+ ind.id + " remarriage " + fam2.married + " before divorce "+ divorced
+                                    record_error(ind.id,message,res,res_error)
+    return res, res_error
+
 # Author Qizhan Liu
 def user_story_12(ind_list):
     res = []
@@ -290,11 +316,54 @@ def user_story_12(ind_list):
 
 # Author Mo Sun
 def user_story_13(ind_list,fam_list):
-    pass
+    res = []
+    res_error = []
+    for fam in fam_list:
+        if fam.children != 'NA':
+            children = []
+            birthday = []
+            for child in fam.children:
+                for ind in ind_list:
+                    if ind.id == child:
+                        children.append(ind.id)
+                        birthday.append(ind.birthday)
+            if len(birthday) > 1:
+                for i in range(len(birthday)-1):
+                    for j in range(i+1,len(birthday)):
+                        datedif1 = (abs(datetime.strptime(birthday[i], '%Y-%m-%d') - datetime.strptime(birthday[j], '%Y-%m-%d')) > timedelta(days=2))
+                        datedif2 = (abs(datetime.strptime(birthday[i], '%Y-%m-%d') - datetime.strptime(birthday[j], '%Y-%m-%d')) < timedelta(days=240))
+                        if datedif1 and datedif2 :
+                            message = "ERROR: FAMILY: US013: in " + fam.id + ", Siblings spacing between " + children[i] + " and " + children[j] + " are wrong"
+                            record_error(fam.id,message,res,res_error)
+    return res, res_error
 
 # Author Mo Sun
 def user_story_14(ind_list,fam_list):
-    pass
+    res = []
+    res_error = []
+    for fam in fam_list:
+        if fam.children != 'NA':
+            children = []
+            birthday = []
+            find = False
+            for child in fam.children:
+                for ind in ind_list:
+                    if ind.id == child:
+                        children.append(ind.id)
+                        birthday.append(ind.birthday)
+            if len(birthday) > 1:
+                for i in range(len(birthday)-1):
+                    if find == True:
+                        break
+                    count = 0
+                    for j in range(i+1,len(birthday)):
+                        if (datetime.strptime(birthday[i], '%Y-%m-%d') == datetime.strptime(birthday[j], '%Y-%m-%d')):
+                            count += 1
+                        if count > 5:
+                            message = "ERROR: FAMILY: US013: in " + fam.id + ", more than five siblings borned at the same time"
+                            record_error(fam.id,message,res,res_error)
+                            find = True                
+    return res, res_error
 
 # Author Yiming Xu
 def user_story_15(ind_list,fam_list):
@@ -330,5 +399,6 @@ if __name__ == '__main__':
         writedowm(user_story_8(ind_list,fam_list)[1])
         writedowm(user_story_9(ind_list)[1])   
         writedowm(user_story_10(ind_list,fam_list)[1])
-
+        writedowm(user_story_11(ind_list,fam_list)[1])
         writedowm(user_story_12(ind_list)[1])
+        writedowm(user_story_13(ind_list,fam_list)[1])
