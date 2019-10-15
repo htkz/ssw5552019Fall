@@ -60,7 +60,7 @@ def us_02(ind_list, fam_list):
                 wrong = False
                 for i in range(3):
                     if int(marriage[i]) > int(birthday[i]):
-                        print(prompt)
+                        # print(prompt)
                         break
                     if int(marriage[i]) < int(birthday[i]):
                         wrong = True
@@ -132,21 +132,11 @@ def user_story_5(test_ind_list,test_fam_list):
         id = i.id
         death = i.death
         for item in test_fam_list:
-            if item.husband_id == id and i.death == 'NA':
-                print(s1)
-
-            if item.wife_id == id and i.death == 'NA':
-                print(s1)
-
-            if item.husband_id == id and item.married < death:
-                print(s1)
             if item.husband_id == id and item.married > death:
                 print("ERROR: FAMILY: US05: %s: Marriage %s after Husband's death %s" %(item.id,item.married,death))
                 res0 = "ERROR: FAMILY: US05: %s: Marriage %s after Husband's death %s" % (item.id, item.married, death)
                 res.append(item.husband_id)
                 res_error.append(res0)
-            if item.wife_id == id and item.married < death:
-                print(s1)
 
             if item.wife_id == id and item.married > death:
                 print("ERROR: FAMILY: US05: %s: Marriage %s after Wife's death %s" %(item.id,item.married,death))
@@ -158,30 +148,17 @@ def user_story_5(test_ind_list,test_fam_list):
 ## Author Yiming Xu and Mo Sun
 ## Pair Programming
 def user_story_6(test_ind_list,test_fam_list):
-    s1 = 'Divorce before death'
     res = []
     res_error=[]
     for i in test_ind_list:
         id = i.id
         death = i.death
         for item in test_fam_list:
-            if item.husband_id == id and item.divorced == 'NA':
-                print(s1)
-            if item.wife_id == id and item.divorced == 'NA':
-                print(s1)
-            if item.husband_id == id and i.death == 'NA':
-                print(s1)
-            if item.wife_id == id and i.death == 'NA':
-                print(s1)
-            if item.husband_id == id and item.divorced < death:
-                print(s1)
             if item.husband_id == id and item.divorced > death:
                 print("ERROR: FAMILY: US06: %s: Divorce %s after Husband's death %s" %(item.id,item.divorced,death))
                 res2 = "ERROR: FAMILY: US06: %s: Divorce %s after Husband's death %s" % (item.id, item.divorced, death)
                 res.append(item.husband_id)
                 res_error.append(res2)
-            if item.wife_id == id and item.divorced < death:
-                print(s1)
             if item.wife_id == id and item.divorced > death:
                 print("ERROR: FAMILY: US05: %s: Divorce %s after Wife's death %s" %(item.id,item.divorced,death))
                 res4 = "ERROR: FAMILY: US05: %s: Divorce %s after Wife's death %s" %(item.id,item.divorced,death)
@@ -200,9 +177,6 @@ def user_story_7(test_ind_list):
             res1 = "ERROR: INDIVIDUAL: US07: %s: More than 150 years old - Birth date %s " %(id,i.birthday)
             res.append(id)
             res_error.append(res1)
-        if i.age<150:
-            print('Less than 150 years old')
-            res1 = 'Less than 150 years old'
     return res,res_error
 
 # Author Yiming Xu
@@ -214,12 +188,10 @@ def user_story_8(test_ind_list,test_fam_list):
         birth = i.birthday
         for item in test_fam_list:
             if id in item.children and item.married > birth:
-                print('ANOMALY: FAMILY: US08: %s: Child %s born before parents marriage on %s' %(item.id,id,item.married))
                 res0 = 'ANOMALY: FAMILY: US08: %s: Child %s born before parents marriage on %s' %(item.id,id,item.married)
+                print(res0)
                 res_error.append(res0)
                 res.append(item.id)
-            if id in item.children and item.married < birth:
-                print('Birth before marriage of parents')
     return res,res_error
 
 # Author Shaopeng Ge
