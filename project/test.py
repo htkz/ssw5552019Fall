@@ -167,5 +167,22 @@ class TestUserStory(unittest.TestCase):
         result = user_story.user_story_16(iden_list,fam_list)[0]
         self.assertEqual(result, ['F5'])
 
+
+    # test for code of us17
+    def test_us17_01(self):
+        result = user_story.user_story_17(fam_list)[0]
+        self.assertEqual(result, ['F3', 'F5'])
+
+
+    def test_us17_02(self):
+        test_list_fam = []
+        test_list_fam.append(iden.Family('F1', None, None, 'I2', None, 'I3', None, {'I2'}))
+        test_list_fam.append(iden.Family('F3', None, None, 'I4', None, 'I5', None, {'I5'}))
+        result = user_story.user_story_17(test_list_fam)[0]
+        self.assertEqual(result, ['F1', 'F3'])
+
+
+
+
 if __name__ == '__main__':
     unittest. main()

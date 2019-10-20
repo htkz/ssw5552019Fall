@@ -363,17 +363,44 @@ def user_story_16(ind_list,fam_list):
     return res, res_error
 
 
+# Parents should not marry any of their children
+def user_story_17(fam_list):
+    error_ids = []
+    error_messages = []
+    for fam in fam_list:
+        if fam.children == 'NA':
+            pass
+        else:
+            if fam.husband_id in fam.children:
+                message = "ERROR: FAMILY: US017: in " + fam.id + ", husband married with his children"
+                error_ids.append(fam.id)
+                error_messages.append(message)
+            if fam.wife_id in fam.children:
+                message = "ERROR: FAMILY: US017: in " + fam.id + ", wife married with her children"
+                error_ids.append(fam.id)
+                error_messages.append(message)
+
+    for message in error_messages:
+        print(message)
+
+    return error_ids, error_messages
+
+
+
+
+
 if __name__ == '__main__':
     ind_list = iden.read_ind_info('project03.ged')
     ind_table = iden.create_ind_table(ind_list)
     fam_list = iden.read_fam_info('project03.ged')
     fam_table = iden.creat_fam_table(fam_list)
-    
+
     with open('output.txt', 'w') as file:
         file.write(str(ind_table))
         file.write('\n')
         file.write(str(fam_table))
         file.write('\n')
+
         def writedowm(res_error):
             for i in res_error:
                 file.write(str(i) + '\n')
@@ -386,7 +413,7 @@ if __name__ == '__main__':
         writedowm(user_story_6(ind_list,fam_list)[1])
         writedowm(user_story_7(ind_list)[1])
         writedowm(user_story_8(ind_list,fam_list)[1])
-        writedowm(user_story_9(ind_list)[1])   
+        writedowm(user_story_9(ind_list)[1])
         writedowm(user_story_10(ind_list,fam_list)[1])
         writedowm(user_story_11(ind_list,fam_list)[1])
         writedowm(user_story_12(ind_list)[1])
@@ -394,3 +421,4 @@ if __name__ == '__main__':
         writedowm(user_story_14(ind_list,fam_list)[1])
         writedowm(user_story_15(fam_list)[1])
         writedowm(user_story_16(ind_list,fam_list)[1])
+        writedowm(user_story_17(fam_list)[1])
