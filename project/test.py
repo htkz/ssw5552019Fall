@@ -135,7 +135,7 @@ class TestUserStory(unittest.TestCase):
     #test for code of us10
     def test_us10_01(self):
         result = user_story.user_story_10(iden_list, fam_list)[0]
-        self.assertEqual(result, ['I1','I2','I11'])
+        self.assertEqual(result, ['I1','I2','I11','I20','I26'])
     
     #test for code of us11
     def test_us11_01(self):
@@ -180,6 +180,18 @@ class TestUserStory(unittest.TestCase):
         test_list_fam.append(iden.Family('F3', None, None, 'I4', None, 'I5', None, {'I5'}))
         result = user_story.user_story_17(test_list_fam)[0]
         self.assertEqual(result, ['F1', 'F3'])
+
+    # test for code of us18
+    def test_us18_01(self):
+        result = user_story.user_story_18(fam_list)[0]
+        self.assertEqual(result, ['F6'])
+
+    def test_us18_02(self):
+        test_list_fam = []
+        test_list_fam.append(iden.Family('F1', None, None, 'I5', None, 'I6', None, None))
+        test_list_fam.append(iden.Family('F3', None, None, 'I4', None, 'I5', None, {'I5', 'I6', 'I7'}))
+        result = user_story.user_story_18(test_list_fam)[0]
+        self.assertEqual(result, ['F1'])
 
 
 

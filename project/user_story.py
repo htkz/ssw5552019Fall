@@ -368,25 +368,34 @@ def user_story_17(fam_list):
     error_ids = []
     error_messages = []
     for fam in fam_list:
-        if fam.children == 'NA':
-            pass
-        else:
+        if fam.children and fam.children != 'NA':
             if fam.husband_id in fam.children:
-                message = "ERROR: FAMILY: US017: in " + fam.id + ", husband married with his children"
-                error_ids.append(fam.id)
-                error_messages.append(message)
+                message = "ERROR: FAMILY: US017: in %s, wife (%s) married with her children" % (fam.id, fam.wife_id)
+                record_error(fam.id, message, error_ids, error_messages)
             if fam.wife_id in fam.children:
-                message = "ERROR: FAMILY: US017: in " + fam.id + ", wife married with her children"
-                error_ids.append(fam.id)
-                error_messages.append(message)
-
-    for message in error_messages:
-        print(message)
+                message = "ERROR: FAMILY: US017: in %s, husband (%s) married with his children" % (fam.id, fam.husband_id)
+                record_error(fam.id, message, error_ids, error_messages)
 
     return error_ids, error_messages
 
 
+# Siblings should not marry
+def user_story_18(fam_list):
+    error_ids = []
+    error_messages = []
+    children_list = []
+    for fam in fam_list:
+        if fam.children and fam.children != 'NA':
+            children_list.append(fam.children)
 
+    for fam in fam_list:
+        for children in children_list:
+            if fam.husband_id in children and fam.wife_id in children:
+                message = 'ERROR: FAMILY: US018: in %s, husband (%s) and wife (%s) are siblings' \
+                          % (fam.id, fam.husband_id, fam.wife_id)
+                record_error(fam.id, message, error_ids, error_messages)
+
+    return error_ids, error_messages
 
 
 if __name__ == '__main__':
@@ -422,3 +431,4 @@ if __name__ == '__main__':
         writedowm(user_story_15(fam_list)[1])
         writedowm(user_story_16(ind_list,fam_list)[1])
         writedowm(user_story_17(fam_list)[1])
+        writedowm(user_story_18(fam_list)[1])
