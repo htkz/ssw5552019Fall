@@ -398,11 +398,65 @@ def user_story_18(fam_list):
     return error_ids, error_messages
 
 
+# First cousins should not marry one another
+def user_story_19(ind_list, fam_list):
+    error_ids = []
+    error_messages = []
+    for fam in fam_list:
+        if fam.children and len(fam.children) >= 2:
+            children_list = []
+            for sibling in fam.children:
+                for ind in ind_list:
+                    if ind.id == sibling and ind.child != 'NA':
+                        children_list.append(ind.child)
+
+            if len(children_list) < 2:
+                continue
+
+            for fam2 in fam_list:
+                husband_index, wife_index = -1, -1
+                for index, chidren in enumerate(children_list):
+                    if fam2.husband_id in chidren:
+                        husband_index = index
+                    if fam2.wife_id in chidren:
+                        wife_index = index
+
+                if husband_index >= 0 and wife_index >= 0 and husband_index != wife_index:
+                    message = 'ERROR: FAMILY: US019: in %s, husband (%s) and wife (%s) are first cousins' \
+                              % (fam2.id, fam2.husband_id, fam2.wife_id)
+                    record_error(fam2.id, message, error_ids, error_messages)
+
+    return error_ids, error_messages
+
+
+# Aunts and uncles should not marry their nieces or nephews
+def user_story_20(fam_list):
+    error_ids = []
+    error_messages = []
+    for fam in fam_list:
+        if fam.children and fam.children != 'NA':
+            if fam.husband_id in fam.children:
+                for fam2 in fam_list:
+                    if fam2.husband_id != fam.husband_id and fam.husband_id in fam2.children:
+                        message = "ERROR: FAMILY: US020: in %s, aunts (%s) married with her children" % (fam.id, fam.wife_id)
+                        record_error(fam.id, message, error_ids, error_messages)
+            if fam.wife_id in fam.children:
+                for fam2 in fam_list:
+                    if fam2.wife_id == fam.wife_id and fam.wife_id in fam2.children:
+                        message = "ERROR: FAMILY: US020: in %s, uncles (%s) married with his children" % (fam.id, fam.husband_id)
+                        record_error(fam.id, message, error_ids, error_messages)
+
+    return error_ids, error_messages
+
+
 if __name__ == '__main__':
     ind_list = iden.read_ind_info('project.ged')
     ind_table = iden.create_ind_table(ind_list)
     fam_list = iden.read_fam_info('project.ged')
     fam_table = iden.creat_fam_table(fam_list)
+
+    print(ind_table)
+    print(fam_table)
 
     with open('output.txt', 'w') as file:
         file.write(str(ind_table))
@@ -432,3 +486,5 @@ if __name__ == '__main__':
         writedowm(user_story_16(ind_list,fam_list)[1])
         writedowm(user_story_17(fam_list)[1])
         writedowm(user_story_18(fam_list)[1])
+        writedowm(user_story_19(ind_list, fam_list)[1])
+        writedowm(user_story_20(fam_list)[1])

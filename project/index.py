@@ -44,3 +44,7 @@ if __name__ == '__main__':
         writedowm(user_story_14(ind_list, fam_list)[1])
         writedowm(user_story_15(fam_list)[1])
         writedowm(user_story_16(ind_list, fam_list)[1])
+        writedowm(user_story_17(fam_list)[1])
+        writedowm(user_story_18(fam_list)[1])
+        writedowm(user_story_19(ind_list, fam_list)[1])
+        writedowm(user_story_20(fam_list)[1])
