@@ -2,7 +2,7 @@ import unittest
 import iden
 import user_story
 
-path = 'project03.ged'
+path = 'project.ged'
 iden_list = iden.read_ind_info(path)
 fam_list = iden.read_fam_info(path)
 

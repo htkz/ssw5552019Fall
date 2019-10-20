@@ -399,9 +399,9 @@ def user_story_18(fam_list):
 
 
 if __name__ == '__main__':
-    ind_list = iden.read_ind_info('project03.ged')
+    ind_list = iden.read_ind_info('project.ged')
     ind_table = iden.create_ind_table(ind_list)
-    fam_list = iden.read_fam_info('project03.ged')
+    fam_list = iden.read_fam_info('project.ged')
     fam_table = iden.creat_fam_table(fam_list)
 
     with open('output.txt', 'w') as file:

@@ -3,17 +3,17 @@ from user_story import *
 
 
 if __name__ == '__main__':
-    ind_list = read_ind_info('project03.ged')
+    ind_list = read_ind_info('project.ged')
     ind_table = create_ind_table(ind_list)
     print(ind_table)
 
-    fam_list = read_fam_info('project03.ged')
+    fam_list = read_fam_info('project.ged')
     fam_table = creat_fam_table(fam_list)
     print(fam_table)
 
-    ind_list = iden.read_ind_info('project03.ged')
+    ind_list = iden.read_ind_info('project.ged')
     ind_table = iden.create_ind_table(ind_list)
-    fam_list = iden.read_fam_info('project03.ged')
+    fam_list = iden.read_fam_info('project.ged')
     fam_table = iden.creat_fam_table(fam_list)
 
     with open('output.txt', 'w') as file:
