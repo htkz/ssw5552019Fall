@@ -1,8 +1,8 @@
 +-----+---------------+--------+-----------+-----+-------+----------+-----------------------------------------------------------------------------------------------------------------+---------+
 |  ID |      Name     | Gender |  Birthday | Age | Alive |  Death   |                                                      Child                                                      |  Spouse |
 +-----+---------------+--------+-----------+-----+-------+----------+-----------------------------------------------------------------------------------------------------------------+---------+
-|  I1 |    San/Xu/    |   M    |  1966-1-1 |  53 |  True |    NA    |                                                {'I3', 'I5', 'I4'}                                               |  {'I2'} |
-|  I2 |     Er/Xu/    |   F    |  1970-1-1 |  49 |  True |    NA    |                                                {'I3', 'I5', 'I4'}                                               |  {'I1'} |
+|  I1 |    San/Xu/    |   F    |  1966-1-1 |  53 |  True |    NA    |                                                {'I3', 'I4', 'I5'}                                               |  {'I2'} |
+|  I2 |     Er/Xu/    |   F    |  1970-1-1 |  49 |  True |    NA    |                                                {'I3', 'I4', 'I5'}                                               |  {'I1'} |
 |  I3 |     Yi/Xu/    |   M    | 1900-3-28 | 119 |  True |    NA    |                                                        NA                                                       |    NA   |
 |  I4 |     Si/Xu/    |   F    |  2020-1-1 |  -1 |  True |    NA    |                                                        NA                                                       |    NA   |
 |  I5 |     Wu/Xu/    |   M    | 1900-3-22 | 119 |  True |    NA    |                                                        NA                                                       |    NA   |
@@ -10,7 +10,7 @@
 |  I7 |    Liu/Xu/    |   F    |  1840-1-1 | 179 |  True |    NA    |                                                      {'I1'}                                                     |  {'I6'} |
 |  I8 |     Ba/Xu/    |   M    | 1840-7-29 | 179 |  True |    NA    |                                                   {'I9', 'I7'}                                                  |  {'I7'} |
 |  I9 |    Jiu/Xu/    |   M    |  1970-3-3 |  49 |  True |    NA    |                                                     {'I28'}                                                     | {'I11'} |
-| I10 |    Shi/Xu/    |   F    |  1970-6-6 |  49 |  True |    NA    | {'I9', 'I16', 'I17', 'I21', 'I14', 'I25', 'I22', 'I24', 'I26', 'I20', 'I13', 'I18', 'I15', 'I12', 'I23', 'I19'} |  {'I9'} |
+| I10 |    Shi/Xu/    |   F    |  1970-6-6 |  49 |  True |    NA    | {'I26', 'I23', 'I13', 'I24', 'I15', 'I17', 'I18', 'I22', 'I14', 'I25', 'I9', 'I16', 'I12', 'I20', 'I21', 'I19'} |  {'I9'} |
 | I11 |   Shiyi/Xu/   |   F    |  1970-7-8 |  49 |  True |    NA    |                                                     {'I28'}                                                     |  {'I9'} |
 | I12 |   Shier/Xu/   |   M    |  1986-1-1 |  33 |  True |    NA    |                                                        NA                                                       |    NA   |
 | I13 |   Shisan/Xu/  |   M    |  1986-1-1 |  33 |  True |    NA    |                                                        NA                                                       |    NA   |
@@ -33,16 +33,16 @@
 +----+-----------+----------+------------+--------------+---------+-----------+-----------------------------------------------------------------------------------------------------------------+
 | ID |  Married  | Divorced | Husband ID | Husband Name | Wife ID | Wife Name |                                                     Children                                                    |
 +----+-----------+----------+------------+--------------+---------+-----------+-----------------------------------------------------------------------------------------------------------------+
-| F1 |  1960-1-1 |    NA    |     I1     |   San/Xu/    |    I2   |   Er/Xu/  |                                                {'I3', 'I5', 'I4'}                                               |
+| F1 |  1960-1-1 |    NA    |     I1     |   San/Xu/    |    I2   |   Er/Xu/  |                                                {'I3', 'I4', 'I5'}                                               |
 | F2 |  1963-1-1 | 1962-1-1 |     I6     |    Qi/Xu/    |    I7   |  Liu/Xu/  |                                                      {'I1'}                                                     |
 | F3 | 1965-7-14 |    NA    |     I8     |    Ba/Xu/    |    I7   |  Liu/Xu/  |                                                   {'I9', 'I7'}                                                  |
 | F4 |  1984-5-4 |    NA    |     I9     |   Jiu/Xu/    |   I11   | Shiyi/Xu/ |                                                     {'I28'}                                                     |
-| F5 |  1985-8-8 | 1986-9-7 |     I9     |   Jiu/Xu/    |   I10   |  Shi/Xu/  | {'I9', 'I16', 'I17', 'I21', 'I14', 'I25', 'I22', 'I24', 'I26', 'I20', 'I13', 'I18', 'I15', 'I12', 'I23', 'I19'} |
+| F5 |  1985-8-8 | 1986-9-7 |     I9     |   Jiu/Xu/    |   I10   |  Shi/Xu/  | {'I26', 'I23', 'I13', 'I24', 'I15', 'I17', 'I18', 'I22', 'I14', 'I25', 'I9', 'I16', 'I12', 'I20', 'I21', 'I19'} |
 | F6 |  1984-5-4 |    NA    |    I26     |  Erliu/Xu/   |   I20   | Ershi/Xu/ |                                                        NA                                                       |
 | F7 |  1984-5-4 |    NA    |    I23     |  Ersan/Xu/   |   I17   | Shiqi/Xu/ |                                                     {'I27'}                                                     |
 | F8 |  1984-5-4 |    NA    |     I1     |   San/Xu/    |   I28   | Fdafd/Xu/ |                                                        NA                                                       |
 +----+-----------+----------+------------+--------------+---------+-----------+-----------------------------------------------------------------------------------------------------------------+
-ERROR: INDIVIDUAL: US01: I4: birthday 2020-1-1 is before current date 2019-10-20
+ERROR: INDIVIDUAL: US01: I4: birthday 2020-1-1 is before current date 2019-10-21
 ERROR: INDIVIDUAL: US02: I1: Married 1960-1-1 before born 1966-1-1
 ERROR: INDIVIDUAL: US02: I2: Married 1960-1-1 before born 1970-1-1
 ERROR: INDIVIDUAL: US02: I20: Married 1984-5-4 before born 1990-6-4
@@ -72,7 +72,7 @@ ERROR: INDIVIDUAL: US10: I28: marriage 1984-5-4 before 14 years old
 ERROR: FAMILY: US011: in F5, I9 remarriage 1984-5-4 before divorce 1986-9-7
 ERROR: INDIVIDUAL: US012: I7 is more than 60 years older than her child I1
 ERROR: INDIVIDUAL: US012: I8 is more than 80 years older than his child I9
-ERROR: FAMILY: US013: in F1, Siblings spacing between I5 and I3 are wrong
+ERROR: FAMILY: US013: in F1, Siblings spacing between I3 and I5 are wrong
 ERROR: FAMILY: US013: in F5, Siblings spacing between I22 and I20 are wrong
 ERROR: FAMILY: US014: in F5, more than five siblings borned at the same time 1986-1-1
 ERROR: FAMILY: US015: in F5, more than 14 siblings in a family
@@ -84,3 +84,5 @@ ERROR: FAMILY: US018: in F7, husband (I23) and wife (I17) are siblings
 ERROR: FAMILY: US019: in F8, husband (I1) and wife (I28) are first cousins
 ERROR: FAMILY: US020: in F3, uncles (I8) married with his children
 ERROR: FAMILY: US020: in F5, aunts (I10) married with her children
+ERROR: FAMILY: US021: in F1, husband (I1) is not male
+ERROR: FAMILY: US021: in F8, husband (I1) is not male

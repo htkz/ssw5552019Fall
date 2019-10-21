@@ -449,6 +449,23 @@ def user_story_20(fam_list):
     return error_ids, error_messages
 
 
+# Husband in family should be male and wife in family should be female
+def user_story_21(ind_list, fam_list):
+    error_ids = []
+    error_messages = []
+
+    for fam in fam_list:
+        for ind in ind_list:
+            if fam.husband_id == ind.id and ind.gender != 'M':
+                message = "ERROR: FAMILY: US021: in %s, husband (%s) is not male" % (fam.id, fam.husband_id)
+                record_error(fam.id, message, error_ids, error_messages)
+            if fam.wife_id == ind.id and ind.gender != 'F':
+                message = "ERROR: FAMILY: US021: in %s, wife (%s) is not female" % (fam.id, fam.wife_id)
+                record_error(fam.id, message, error_ids, error_messages)
+
+    return error_ids, error_messages
+
+
 if __name__ == '__main__':
     ind_list = iden.read_ind_info('project.ged')
     ind_table = iden.create_ind_table(ind_list)
@@ -488,3 +505,4 @@ if __name__ == '__main__':
         writedowm(user_story_18(fam_list)[1])
         writedowm(user_story_19(ind_list, fam_list)[1])
         writedowm(user_story_20(fam_list)[1])
+        writedowm(user_story_21(ind_list, fam_list)[1])
