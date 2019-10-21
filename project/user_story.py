@@ -1,5 +1,5 @@
 import iden
-import unittest
+import collections
 from datetime import datetime, timedelta, date
 
 
@@ -466,6 +466,26 @@ def user_story_21(ind_list, fam_list):
     return error_ids, error_messages
 
 
+# All individual IDs should be unique and all family IDs should be unique
+def user_story_22(ind_list, fam_list):
+    error_ids = []
+    error_messages = []
+
+    ind_ids = [ind.id for ind in ind_list]
+    fam_ids = [fam.id for fam in fam_list]
+    duplicate_inds = [item for item, count in collections.Counter(ind_ids).items() if count > 1]
+    duplicate_fams = [item for item, count in collections.Counter(fam_ids).items() if count > 1]
+
+    for id in duplicate_inds:
+        message = "ERROR: INDIVIDUAL: US022: Individual id (%s) duplicates" % id
+        record_error(id, message, error_ids, error_messages)
+    for id in duplicate_fams:
+        message = "ERROR: FAMILY: US022: Family id (%s) duplicates" % id
+        record_error(id, message, error_ids, error_messages)
+
+    return error_ids, error_messages
+
+
 if __name__ == '__main__':
     ind_list = iden.read_ind_info('project.ged')
     ind_table = iden.create_ind_table(ind_list)
@@ -506,3 +526,4 @@ if __name__ == '__main__':
         writedowm(user_story_19(ind_list, fam_list)[1])
         writedowm(user_story_20(fam_list)[1])
         writedowm(user_story_21(ind_list, fam_list)[1])
+        writedowm(user_story_22(ind_list, fam_list)[1])
