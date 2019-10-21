@@ -507,6 +507,31 @@ def user_story_23(ind_list):
     return error_ids, error_messages
 
 
+# No more than one family with the same spouses by name and the same marriage date should appear in a GEDCOM file
+def user_story_24(fam_list):
+    error_ids = []
+    error_messages = []
+
+    married = [fam.married for fam in fam_list]
+    duplicate_married = [item for item, count in collections.Counter(married).items() if count > 1]
+
+    for married in duplicate_married:
+        candi_fam = []
+        for fam in fam_list:
+            if fam.married  == married:
+                candi_fam.append(fam)
+        for i in range(len(candi_fam)):
+            first_fam = candi_fam[i]
+            for j in range(i + 1, len(candi_fam)):
+                second_fam = candi_fam[j]
+                if first_fam.husband_name == second_fam.husband_name or first_fam.wife_name == second_fam.wife_name:
+                    message = "ERROR: FAMILY: US024: Family (%s) and family (%s) " \
+                              "has same spouses by name and the same marriage date" \
+                              % (first_fam.id, second_fam.id)
+                    record_error(first_fam.id, message, error_ids, error_messages)
+                    error_ids.append(second_fam.id)
+
+    return error_ids, error_messages
 
 
 if __name__ == '__main__':
@@ -551,3 +576,4 @@ if __name__ == '__main__':
         writedowm(user_story_21(ind_list, fam_list)[1])
         writedowm(user_story_22(ind_list, fam_list)[1])
         writedowm(user_story_23(ind_list)[1])
+        writedowm(user_story_24(fam_list)[1])
