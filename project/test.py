@@ -216,7 +216,7 @@ class TestUserStory(unittest.TestCase):
     # test for code of us23
     def test_us23_01(self):
         result = user_story.user_story_23(iden_list)[0]
-        self.assertEqual(result, ['Fdafdfd/Xu/'])
+        self.assertEqual(result, ['Fdafdfd/Xu/', '1986-1-1', '1997-8-6'])
 
 
 if __name__ == '__main__':
