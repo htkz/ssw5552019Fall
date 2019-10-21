@@ -486,6 +486,21 @@ def user_story_22(ind_list, fam_list):
     return error_ids, error_messages
 
 
+# No more than one individual with the same name and birth date should appear in a GEDCOM file
+def user_story_23(ind_list):
+    error_ids = []
+    error_messages = []
+
+    names = [ind.name for ind in ind_list]
+    duplicate_names = [item for item, count in collections.Counter(names).items() if count > 1]
+
+    for name in duplicate_names:
+        message = "ERROR: INDIVIDUAL: US023: Individual name (%s) duplicates" % name
+        record_error(name, message, error_ids, error_messages)
+
+    return error_ids, error_messages
+
+
 if __name__ == '__main__':
     ind_list = iden.read_ind_info('project.ged')
     ind_table = iden.create_ind_table(ind_list)
@@ -527,3 +542,4 @@ if __name__ == '__main__':
         writedowm(user_story_20(fam_list)[1])
         writedowm(user_story_21(ind_list, fam_list)[1])
         writedowm(user_story_22(ind_list, fam_list)[1])
+        writedowm(user_story_23(ind_list)[1])

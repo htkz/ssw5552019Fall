@@ -50,3 +50,4 @@ if __name__ == '__main__':
         writedowm(user_story_20(fam_list)[1])
         writedowm(user_story_21(ind_list, fam_list)[1])
         writedowm(user_story_22(ind_list, fam_list)[1])
+        writedowm(user_story_23(ind_list)[1])

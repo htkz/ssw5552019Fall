@@ -208,10 +208,15 @@ class TestUserStory(unittest.TestCase):
         result = user_story.user_story_21(iden_list, fam_list)[0]
         self.assertEqual(result, ['F1', 'F8'])
 
-    # test for code of us21
+    # test for code of us22
     def test_us22_01(self):
         result = user_story.user_story_22(iden_list, fam_list)[0]
         self.assertEqual(result, ['I29'])
+
+    # test for code of us23
+    def test_us23_01(self):
+        result = user_story.user_story_23(iden_list)[0]
+        self.assertEqual(result, ['Fdafdfd/Xu/'])
 
 
 if __name__ == '__main__':
