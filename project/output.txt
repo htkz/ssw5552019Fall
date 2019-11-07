@@ -1,53 +1,69 @@
-+-----+---------------+--------+-----------+-----+-------+----------+-----------------------------------------------------------------------------------------------------------------+---------+
-|  ID |      Name     | Gender |  Birthday | Age | Alive |  Death   |                                                      Child                                                      |  Spouse |
-+-----+---------------+--------+-----------+-----+-------+----------+-----------------------------------------------------------------------------------------------------------------+---------+
-|  I1 |    San/Xu/    |   F    |  1966-1-1 |  53 |  True |    NA    |                                                {'I4', 'I3', 'I5'}                                               |  {'I2'} |
-|  I2 |     Er/Xu/    |   F    |  1970-1-1 |  49 |  True |    NA    |                                                {'I4', 'I3', 'I5'}                                               |  {'I1'} |
-|  I3 |     Yi/Xu/    |   M    | 1900-3-28 | 119 |  True |    NA    |                                                        NA                                                       |    NA   |
-|  I4 |     Si/Xu/    |   F    |  2020-1-1 |  -1 |  True |    NA    |                                                        NA                                                       |    NA   |
-|  I5 |     Wu/Xu/    |   M    | 1900-3-22 | 119 |  True |    NA    |                                                        NA                                                       |    NA   |
-|  I6 |     Qi/Xu/    |   M    |  1942-1-1 | -12 | False | 1930-1-1 |                                                      {'I1'}                                                     |  {'I7'} |
-|  I7 |    Liu/Xu/    |   F    |  1840-1-1 | 179 |  True |    NA    |                                                      {'I1'}                                                     |  {'I6'} |
-|  I8 |     Ba/Xu/    |   M    | 1840-7-29 | 179 |  True |    NA    |                                                   {'I9', 'I7'}                                                  |  {'I7'} |
-|  I9 |    Jiu/Xu/    |   M    |  1970-3-3 |  49 |  True |    NA    |                                                     {'I28'}                                                     | {'I11'} |
-| I10 |    Shi/Xu/    |   F    |  1970-6-6 |  49 |  True |    NA    | {'I26', 'I20', 'I16', 'I22', 'I21', 'I9', 'I12', 'I24', 'I18', 'I15', 'I17', 'I23', 'I25', 'I19', 'I14', 'I13'} |  {'I9'} |
-| I11 |   Shiyi/Xu/   |   F    |  1970-7-8 |  49 |  True |    NA    |                                                     {'I28'}                                                     |  {'I9'} |
-| I12 |   Shier/Xu/   |   M    |  1986-1-1 |  33 |  True |    NA    |                                                        NA                                                       |    NA   |
-| I13 |   Shisan/Xu/  |   M    |  1986-1-1 |  33 |  True |    NA    |                                                        NA                                                       |    NA   |
-| I14 |   Shisi/Xu/   |   F    |  1986-1-1 |  33 |  True |    NA    |                                                        NA                                                       |    NA   |
-| I15 |   Shiwu/Xu/   |   M    |  1986-1-1 |  33 |  True |    NA    |                                                        NA                                                       |    NA   |
-| I16 |   Shiliu/Xu/  |   F    |  1986-1-1 |  33 |  True |    NA    |                                                        NA                                                       |    NA   |
-| I17 |   Shiqi/Xu/   |   F    |  1986-1-1 |  33 |  True |    NA    |                                                        NA                                                       |    NA   |
-| I18 |   Shiba/Xu/   |   F    |  1988-3-3 |  31 |  True |    NA    |                                                        NA                                                       |    NA   |
-| I19 | Shijiu/Zhang/ |   M    |  1989-5-5 |  30 |  True |    NA    |                                                        NA                                                       |    NA   |
-| I20 |   Ershi/Xu/   |   F    |  1990-6-4 |  29 |  True |    NA    |                                                        NA                                                       |    NA   |
-| I21 |    Eryi/Xu/   |   M    |  1999-7-4 |  20 |  True |    NA    |                                                        NA                                                       |    NA   |
-| I22 |    Erer/Xu/   |   M    |  1990-5-4 |  29 |  True |    NA    |                                                        NA                                                       |    NA   |
-| I23 |   Ersan/Xu/   |   M    | 1992-11-5 |  27 |  True |    NA    |                                                        NA                                                       |    NA   |
-| I24 |    Ersi/Xu/   |   F    |  2001-7-5 |  18 |  True |    NA    |                                                        NA                                                       |    NA   |
-| I25 |    Erwu/Xu/   |   M    |  1995-5-5 |  24 |  True |    NA    |                                                        NA                                                       |    NA   |
-| I26 |   Erliu/Xu/   |   M    |  1997-8-6 |  22 |  True |    NA    |                                                        NA                                                       |    NA   |
-| I27 |  Erfdliu/Xu/  |   M    |  1997-8-6 |  22 |  True |    NA    |                                                        NA                                                       |    NA   |
-| I28 |   Fdafd/Xu/   |   F    |  1997-8-6 |  22 |  True |    NA    |                                                        NA                                                       |    NA   |
-| I29 |  Fdafdfd/Xu/  |   F    |  1997-8-6 |  22 |  True |    NA    |                                                        NA                                                       |    NA   |
-| I29 |  Fdafdfd/Xu/  |   F    |  1997-8-6 |  22 |  True |    NA    |                                                        NA                                                       |    NA   |
-| I30 |    San/Xu/    |   M    |  1987-8-6 |  32 |  True |    NA    |                                                        NA                                                       |    NA   |
-| I31 |  Fdafdfd/Xu/  |   F    |  1987-8-6 |  32 |  True |    NA    |                                                        NA                                                       |    NA   |
-+-----+---------------+--------+-----------+-----+-------+----------+-----------------------------------------------------------------------------------------------------------------+---------+
-+----+-----------+----------+------------+--------------+---------+-------------+-----------------------------------------------------------------------------------------------------------------+
-| ID |  Married  | Divorced | Husband ID | Husband Name | Wife ID |  Wife Name  |                                                     Children                                                    |
-+----+-----------+----------+------------+--------------+---------+-------------+-----------------------------------------------------------------------------------------------------------------+
-| F1 |  1960-1-1 |    NA    |     I1     |   San/Xu/    |    I2   |    Er/Xu/   |                                                {'I4', 'I3', 'I5'}                                               |
-| F2 |  1963-1-1 | 1962-1-1 |     I6     |    Qi/Xu/    |    I7   |   Liu/Xu/   |                                                      {'I1'}                                                     |
-| F3 | 1965-7-14 |    NA    |     I8     |    Ba/Xu/    |    I7   |   Liu/Xu/   |                                                   {'I9', 'I7'}                                                  |
-| F4 |  1984-5-4 |    NA    |     I9     |   Jiu/Xu/    |   I11   |  Shiyi/Xu/  |                                                     {'I28'}                                                     |
-| F5 |  1985-8-8 | 1986-9-7 |     I9     |   Jiu/Xu/    |   I10   |   Shi/Xu/   | {'I26', 'I20', 'I16', 'I22', 'I21', 'I9', 'I12', 'I24', 'I18', 'I15', 'I17', 'I23', 'I25', 'I19', 'I14', 'I13'} |
-| F6 |  1984-5-4 |    NA    |    I26     |  Erliu/Xu/   |   I20   |  Ershi/Xu/  |                                                        NA                                                       |
-| F7 |  1984-5-4 |    NA    |    I23     |  Ersan/Xu/   |   I17   |  Shiqi/Xu/  |                                                     {'I27'}                                                     |
-| F8 |  1984-5-4 |    NA    |     I1     |   San/Xu/    |   I28   |  Fdafd/Xu/  |                                                        NA                                                       |
-| F9 |  1984-5-4 |    NA    |    I30     |   San/Xu/    |   I31   | Fdafdfd/Xu/ |                                                        NA                                                       |
-+----+-----------+----------+------------+--------------+---------+-------------+-----------------------------------------------------------------------------------------------------------------+
-ERROR: INDIVIDUAL: US01: I4: birthday 2020-1-1 is before current date 2019-10-21
++-----+---------------+--------+-----------+-----+-------+-----------+-----------------------------------------------------------------------------------------------------------------+---------+
+|  ID |      Name     | Gender |  Birthday | Age | Alive |   Death   |                                                      Child                                                      |  Spouse |
++-----+---------------+--------+-----------+-----+-------+-----------+-----------------------------------------------------------------------------------------------------------------+---------+
+|  I1 |    San/Xu/    |   F    |  1966-1-1 |  53 |  True |     NA    |                                                {'I3', 'I4', 'I5'}                                               |  {'I2'} |
+|  I2 |     Er/Xu/    |   F    |  1970-1-1 |  49 |  True |     NA    |                                                {'I3', 'I4', 'I5'}                                               |  {'I1'} |
+|  I3 |     Yi/Xu/    |   M    | 1900-3-28 | 119 |  True |     NA    |                                                        NA                                                       |    NA   |
+|  I4 |     Si/Xu/    |   F    |  2020-1-1 |  -1 |  True |     NA    |                                                        NA                                                       |    NA   |
+|  I5 |     Wu/Xu/    |   M    | 1900-3-22 | 119 |  True |     NA    |                                                        NA                                                       |    NA   |
+|  I6 |     Qi/Xu/    |   M    |  1942-1-1 | -12 | False |  1930-1-1 |                                                      {'I1'}                                                     |  {'I7'} |
+|  I7 |    Liu/Xu/    |   F    |  1840-1-1 | 179 |  True |     NA    |                                                      {'I1'}                                                     |  {'I6'} |
+|  I8 |     Ba/Xu/    |   M    | 1840-7-29 | 179 |  True |     NA    |                                                   {'I9', 'I7'}                                                  |  {'I7'} |
+|  I9 |    Jiu/Xu/    |   M    |  1970-3-3 |  49 |  True |     NA    |                                                     {'I28'}                                                     | {'I11'} |
+| I10 |    Shi/Xu/    |   F    |  1970-6-6 |  49 |  True |     NA    | {'I9', 'I25', 'I14', 'I19', 'I17', 'I13', 'I20', 'I16', 'I21', 'I18', 'I24', 'I15', 'I22', 'I26', 'I12', 'I23'} |  {'I9'} |
+| I11 |   Shiyi/Xu/   |   F    |  1970-7-8 |  49 |  True |     NA    |                                                     {'I28'}                                                     |  {'I9'} |
+| I12 |   Shier/Xu/   |   M    |  1986-1-1 |  33 |  True |     NA    |                                                        NA                                                       |    NA   |
+| I13 |   Shisan/Xu/  |   M    |  1986-1-1 |  33 |  True |     NA    |                                                        NA                                                       |    NA   |
+| I14 |   Shisi/Xu/   |   F    |  1986-1-1 |  33 |  True |     NA    |                                                        NA                                                       |    NA   |
+| I15 |   Shiwu/Xu/   |   M    |  1986-1-1 |  33 |  True |     NA    |                                                        NA                                                       |    NA   |
+| I16 |   Shiliu/Xu/  |   F    |  1986-1-1 |  33 |  True |     NA    |                                                        NA                                                       |    NA   |
+| I17 |   Shiqi/Xu/   |   F    |  1986-1-1 |  33 |  True |     NA    |                                                        NA                                                       |    NA   |
+| I18 |   Shiba/Xu/   |   F    |  1988-3-3 |  31 |  True |     NA    |                                                        NA                                                       |    NA   |
+| I19 | Shijiu/Zhang/ |   M    |  1989-5-5 |  30 |  True |     NA    |                                                        NA                                                       |    NA   |
+| I20 |   Ershi/Xu/   |   F    |  1990-6-4 |  29 |  True |     NA    |                                                        NA                                                       |    NA   |
+| I21 |    Eryi/Xu/   |   M    |  1999-7-4 |  20 |  True |     NA    |                                                        NA                                                       |    NA   |
+| I22 |    Erer/Xu/   |   M    |  1990-5-4 |  29 |  True |     NA    |                                                        NA                                                       |    NA   |
+| I23 |   Ersan/Xu/   |   M    | 1992-11-5 |  27 |  True |     NA    |                                                        NA                                                       |    NA   |
+| I24 |    Ersi/Xu/   |   F    |  2001-7-5 |  18 |  True |     NA    |                                                        NA                                                       |    NA   |
+| I25 |    Erwu/Xu/   |   M    |  1995-5-5 |  24 |  True |     NA    |                                                        NA                                                       |    NA   |
+| I26 |   Erliu/Xu/   |   M    |  1997-8-6 |  22 |  True |     NA    |                                                        NA                                                       |    NA   |
+| I27 |  Erfdliu/Xu/  |   M    |  1997-8-6 |  22 |  True |     NA    |                                                        NA                                                       |    NA   |
+| I28 |   Fdafd/Xu/   |   F    |  1997-8-6 |  22 |  True |     NA    |                                                        NA                                                       |    NA   |
+| I29 |  Fdafdfd/Xu/  |   F    |  1997-8-6 |  22 |  True |     NA    |                                                        NA                                                       |    NA   |
+| I29 |  Fdafdfd/Xu/  |   F    |  1997-8-6 |  22 |  True |     NA    |                                                        NA                                                       |    NA   |
+| I30 |    San/Xu/    |   M    |  1987-8-6 |  32 |  True |     NA    |                                                        NA                                                       |    NA   |
+| I31 |  Fdafdfd/Xu/  |   F    |  1987-8-6 |  32 |  True |     NA    |                                                        NA                                                       |    NA   |
+| I32 |    Erqi/Xu/   |   F    |  1987-8-6 |  32 |  True |     NA    |                                                        NA                                                       |    NA   |
+| I33 |    Erqi/Xu/   |   F    |  1987-8-7 |  32 |  True |     NA    |                                                        NA                                                       |    NA   |
+| I34 |    Erba/Xu/   |   M    |  1950-8-6 |  69 |  True |     NA    |                                                        NA                                                       |    NA   |
+| I35 |   Erjiu/Xu/   |   F    |  1951-8-6 |  68 |  True |     NA    |                                                        NA                                                       |    NA   |
+| I36 |   Sanshi/Xu/  |   F    |  1951-8-9 |  35 | False |  1986-1-5 |                                                        NA                                                       |    NA   |
+| I37 |   Sanyi/Xu/   |   M    | 1952-8-10 |  38 | False |  1990-1-1 |                                                        NA                                                       |    NA   |
+| I38 |   Saner/Xu/   |   F    | 1952-8-11 |  38 | False |  1990-1-2 |                                                        NA                                                       |    NA   |
+| I39 |   Sansan/Xu/  |   M    |  2005-8-1 |  14 |  True |     NA    |                                                        NA                                                       |    NA   |
+| I40 |   Sansi/Xu/   |   F    |  1999-8-1 |  20 |  True |     NA    |                                                        NA                                                       |    NA   |
+| I41 |   Sanwu/Xu/   |   M    |  1955-8-1 |  64 |  True |     NA    |                                                        NA                                                       |    NA   |
+| I42 |   SanLiu/Xu/  |   F    |  1956-8-1 |  63 |  True |     NA    |                                                        NA                                                       |    NA   |
+| I43 |   Sanqi/Xu/   |   M    |  1982-8-1 |  37 | False | 2019-11-5 |                                                        NA                                                       |    NA   |
+| I44 |   Sanba/Xu/   |   F    | 2019-11-5 |  0  |  True |     NA    |                                                        NA                                                       |    NA   |
++-----+---------------+--------+-----------+-----+-------+-----------+-----------------------------------------------------------------------------------------------------------------+---------+
++-----+-----------+----------+------------+--------------+---------+-------------+-----------------------------------------------------------------------------------------------------------------+
+|  ID |  Married  | Divorced | Husband ID | Husband Name | Wife ID |  Wife Name  |                                                     Children                                                    |
++-----+-----------+----------+------------+--------------+---------+-------------+-----------------------------------------------------------------------------------------------------------------+
+|  F1 |  1960-1-1 |    NA    |     I1     |   San/Xu/    |    I2   |    Er/Xu/   |                                                {'I3', 'I4', 'I5'}                                               |
+|  F2 |  1963-1-1 | 1962-1-1 |     I6     |    Qi/Xu/    |    I7   |   Liu/Xu/   |                                                      {'I1'}                                                     |
+|  F3 | 1965-7-14 |    NA    |     I8     |    Ba/Xu/    |    I7   |   Liu/Xu/   |                                                   {'I9', 'I7'}                                                  |
+|  F4 |  1984-5-4 |    NA    |     I9     |   Jiu/Xu/    |   I11   |  Shiyi/Xu/  |                                                     {'I28'}                                                     |
+|  F5 |  1985-8-8 | 1986-9-7 |     I9     |   Jiu/Xu/    |   I10   |   Shi/Xu/   | {'I9', 'I25', 'I14', 'I19', 'I17', 'I13', 'I20', 'I16', 'I21', 'I18', 'I24', 'I15', 'I22', 'I26', 'I12', 'I23'} |
+|  F6 |  1984-5-4 |    NA    |    I26     |  Erliu/Xu/   |   I20   |  Ershi/Xu/  |                                                        NA                                                       |
+|  F7 |  1984-5-4 |    NA    |    I23     |  Ersan/Xu/   |   I17   |  Shiqi/Xu/  |                                                     {'I27'}                                                     |
+|  F8 |  1984-5-4 |    NA    |     I1     |   San/Xu/    |   I28   |  Fdafd/Xu/  |                                                        NA                                                       |
+|  F9 |  1984-5-4 |    NA    |    I30     |   San/Xu/    |   I31   | Fdafdfd/Xu/ |                                                        NA                                                       |
+| F10 |  1984-5-4 |    NA    |    I34     |   Erba/Xu/   |   I35   |  Erjiu/Xu/  |                                                  {'I33', 'I32'}                                                 |
+| F11 |  1984-5-4 |    NA    |    I37     |  Sanyi/Xu/   |   I38   |  Saner/Xu/  |                                                  {'I40', 'I39'}                                                 |
+| F12 |  1980-5-1 |    NA    |    I41     |  Sanwu/Xu/   |   I42   |  SanLiu/Xu/ |                                                  {'I43', 'I44'}                                                 |
++-----+-----------+----------+------------+--------------+---------+-------------+-----------------------------------------------------------------------------------------------------------------+
+ERROR: INDIVIDUAL: US01: I4: birthday 2020-1-1 is after current date 2019-11-06
 ERROR: INDIVIDUAL: US02: I1: Married 1960-1-1 before born 1966-1-1
 ERROR: INDIVIDUAL: US02: I2: Married 1960-1-1 before born 1970-1-1
 ERROR: INDIVIDUAL: US02: I30: Married 1960-1-1 before born 1987-8-6
@@ -62,9 +78,14 @@ ERROR: INDIVIDUAL: US02: I29: Married 1984-5-4 before born 1997-8-6
 ERROR: INDIVIDUAL: US02: I30: Married 1984-5-4 before born 1987-8-6
 ERROR: INDIVIDUAL: US02: I31: Married 1984-5-4 before born 1987-8-6
 ERROR: INDIVIDUAL: US03: I6: Died 1930-1-1 before born1942-1-1
+ERROR: INDIVIDUAL: US03: I36: Died 1986-1-5 before born1951-8-9
+ERROR: INDIVIDUAL: US03: I37: Died 1990-1-1 before born1952-8-10
+ERROR: INDIVIDUAL: US03: I38: Died 1990-1-2 before born1952-8-11
 ERROR: FAMILY: US04: F2: Divorced 1962-1-1 before married 1963-1-1
 ERROR: FAMILY: US05: F2: Marriage 1963-1-1 after Husband's death 1930-1-1
 ERROR: FAMILY: US06: F2: Divorce 1962-1-1 after Husband's death 1930-1-1
+ERROR: FAMILY: US06: F11: Divorce NA after Husband's death 1990-1-1
+ERROR: FAMILY: US05: F11: Divorce NA after Wife's death 1990-1-2
 ERROR: INDIVIDUAL: US07: I7: More than 150 years old - Birth date 1840-1-1 
 ERROR: INDIVIDUAL: US07: I8: More than 150 years old - Birth date 1840-7-29 
 ANOMALY: FAMILY: US08: F1: Child I3 born before parents marriage on 1960-1-1
@@ -102,7 +123,50 @@ ERROR: FAMILY: US021: in F8, husband (I1) is not male
 ERROR: INDIVIDUAL: US022: Individual id (I29) duplicates
 ERROR: INDIVIDUAL: US023: Individual name (San/Xu/) duplicates
 ERROR: INDIVIDUAL: US023: Individual name (Fdafdfd/Xu/) duplicates
+ERROR: INDIVIDUAL: US023: Individual name (Erqi/Xu/) duplicates
 ERROR: INDIVIDUAL: US023: Individual birth (1986-1-1) duplicates
 ERROR: INDIVIDUAL: US023: Individual birth (1997-8-6) duplicates
 ERROR: INDIVIDUAL: US023: Individual birth (1987-8-6) duplicates
 ERROR: FAMILY: US024: Family (F8) and family (F9) has same spouses by name and the same marriage date
+ERROR: Children: US025: Children birth (1986-1-1) duplicates
+ERROR: Children: US025: Children name (Erqi/Xu/) duplicates
+US029: All deceased people: (Qi/Xu/)
+US029: All deceased people: (Sanshi/Xu/)
+US029: All deceased people: (Sanyi/Xu/)
+US029: All deceased people: (Saner/Xu/)
+US029: All deceased people: (Sanqi/Xu/)
+US030: All living married people: (San/Xu/)
+US030: All living married people: (San/Xu/)
+US030: All living married people: (Er/Xu/)
+US030: All living married people: (Liu/Xu/)
+US030: All living married people: (Ba/Xu/)
+US030: All living married people: (Jiu/Xu/)
+US030: All living married people: (Shiyi/Xu/)
+US030: All living married people: (Shiqi/Xu/)
+US030: All living married people: (Ershi/Xu/)
+US030: All living married people: (Ersan/Xu/)
+US030: All living married people: (Erliu/Xu/)
+US030: All living married people: (Fdafd/Xu/)
+US030: All living married people: (San/Xu/)
+US030: All living married people: (Fdafdfd/Xu/)
+US030: All living married people: (Erba/Xu/)
+US030: All living married people: (Erjiu/Xu/)
+US030: All living married people: (Sanwu/Xu/)
+US030: All living married people: (SanLiu/Xu/)
+US031: All living people over 30 who have never been married: (Yi/Xu/)
+US031: All living people over 30 who have never been married: (Wu/Xu/)
+US031: All living people over 30 who have never been married: (Shier/Xu/)
+US031: All living people over 30 who have never been married: (Shisan/Xu/)
+US031: All living people over 30 who have never been married: (Shisi/Xu/)
+US031: All living people over 30 who have never been married: (Shiwu/Xu/)
+US031: All living people over 30 who have never been married: (Shiliu/Xu/)
+US031: All living people over 30 who have never been married: (Shiba/Xu/)
+US031: All living people over 30 who have never been married: (Shijiu/Zhang/)
+US031: All living people over 30 who have never been married: (Erqi/Xu/)
+US031: All living people over 30 who have never been married: (Erqi/Xu/)
+Multiple Birth: INDIVIDUAL: US032: Individual birth (1986-1-1) duplicates
+Multiple Birth: INDIVIDUAL: US032: Individual birth (1997-8-6) duplicates
+Multiple Birth: INDIVIDUAL: US032: Individual birth (1987-8-6) duplicates
+US033: All orphaned children: (Sansan/Xu/)
+US035: All people who were born in the last 30 days: (Sanba/Xu/)
+US036: All people who were died in the last 30 days: (Sanqi/Xu/)
