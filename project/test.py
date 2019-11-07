@@ -122,51 +122,50 @@ class TestUserStory(unittest.TestCase):
     def test_us08_02(self):
         test_list = []
         test_list1 = []
-        test_list.append(iden.Individual('I1',None,None,'1990-1-1',None,None,None,None,None))
-        test_list1.append(iden.Family('F1','1995-1-1',None,'I1',None,'I2',None,{'I1','I2'}))
-        result = user_story.user_story_8(test_list,test_list1)[0]
-        self.assertEqual(result,['F1'])
-    
-    #test for code of us09
+        test_list.append(iden.Individual('I1', None, None, '1990-1-1', None, None, None, None, None))
+        test_list1.append(iden.Family('F1', '1995-1-1', None, 'I1', None, 'I2', None, {'I1', 'I2'}))
+        result = user_story.user_story_8(test_list, test_list1)[0]
+        self.assertEqual(result, ['F1'])
+
+    # test for code of us09
     def test_us09_01(self):
         result = user_story.user_story_9(iden_list)[0]
         self.assertEqual(result, ['I1'])
 
-    #test for code of us10
+    # test for code of us10
     def test_us10_01(self):
         result = user_story.user_story_10(iden_list, fam_list)[0]
-        self.assertEqual(result, ['I1','I2','I11','I20','I26', 'I17', 'I23', 'I28', 'I30', 'I31'])
-    
-    #test for code of us11
+        self.assertEqual(result, ['I1', 'I2', 'I11', 'I20', 'I26', 'I17', 'I23', 'I28', 'I30', 'I31'])
+
+    # test for code of us11
     def test_us11_01(self):
         result = user_story.user_story_11(iden_list, fam_list)[0]
         self.assertEqual(result, ['I9'])
 
-    #test for code of us12
+    # test for code of us12
     def test_us12_01(self):
         result = user_story.user_story_12(iden_list)[0]
-        self.assertEqual(result, ['I7','I8'])
-    
-    #test for code of us13
+        self.assertEqual(result, ['I7', 'I8'])
+
+    # test for code of us13
     def test_us13_01(self):
-        result = user_story.user_story_13(iden_list,fam_list)[0]
+        result = user_story.user_story_13(iden_list, fam_list)[0]
         self.assertEqual(result, ['F1', 'F5'])
-    
-    #test for code of us14
+
+    # test for code of us14
     def test_us14_01(self):
-        result = user_story.user_story_14(iden_list,fam_list)[0]
+        result = user_story.user_story_14(iden_list, fam_list)[0]
         self.assertEqual(result, ['F5'])
 
-    #test for code of us15
+    # test for code of us15
     def test_us15_01(self):
         result = user_story.user_story_15(fam_list)[0]
         self.assertEqual(result, ['F5'])
 
-    #test for code of us16
+    # test for code of us16
     def test_us16_01(self):
-        result = user_story.user_story_16(iden_list,fam_list)[0]
+        result = user_story.user_story_16(iden_list, fam_list)[0]
         self.assertEqual(result, ['F5'])
-
 
     # test for code of us17
     def test_us17_01(self):
@@ -192,10 +191,12 @@ class TestUserStory(unittest.TestCase):
         result = user_story.user_story_18(test_list_fam)[0]
         self.assertEqual(result, ['F1'])
 
+
     # test for code of us19
     def test_us19_01(self):
         result = user_story.user_story_19(iden_list, fam_list)[0]
         self.assertEqual(result, ['F8'])
+
 
     # test for code of us20
     def test_us20_01(self):
@@ -215,7 +216,7 @@ class TestUserStory(unittest.TestCase):
     # test for code of us23
     def test_us23_01(self):
         result = user_story.user_story_23(iden_list)[0]
-        self.assertEqual(result, ['San/Xu/', 'Fdafdfd/Xu/', '1986-1-1', '1997-8-6', '1987-8-6'])
+        self.assertEqual(result, ['San/Xu/', 'Fdafdfd/Xu/', 'Erqi/Xu/', '1986-1-1', '1997-8-6', '1987-8-6'])
 
     # test for code of us24
     def test_us24_01(self):

@@ -5,44 +5,52 @@ from datetime import datetime, timedelta, date
 
 # user_story_1: Dates before current date
 # Author: Shaopeng Ge
-def record_error(id,message,res,res_error):
+def record_error(id, message, res, res_error):
     print(message)
     res.append(id)
     res_error.append(message)
 
-def user_story_01(ind_list,fam_list):
+
+def user_story_01(ind_list, fam_list):
     res = []
-    res_error= []
-    today = str(date.today())
-    #check ind's birthday and death date
+    res_error = []
+
+    # check ind's birthday and death date
     for i in ind_list:
-        birthday = i.birthday
-        death = i.death
-        id = i.id
-        #check birthday of ind
-        if birthday > today:
-            message = "ERROR: INDIVIDUAL: US01: " + id + ": birthday " + birthday + " is before current date " + today
-            record_error(id,message,res,res_error)
-        #check death date of ind
-        if death != "NA" and death > today:
-            message = "ERROR: INDIVIDUAL: US01: " + id + ": death date " + death + " is before current date " + today
-            record_error(id,message,res,res_error)
+        # birthday = i.birthday
+        # death = i.death
+        # id = i.id
+        today = str(date.today())
+        birthday = datetime.strptime(i.birthday, '%Y-%m-%d')
+        today_1 = datetime.strptime(today, '%Y-%m-%d')
 
+        # check birthday of ind
+        # if birthday > today:
+        if (birthday - today_1).days > 0:
+            message = "ERROR: INDIVIDUAL: US01: " + i.id + ": birthday " + i.birthday + " is after current date " + today
+            record_error(i.id, message, res, res_error)
+        # check death date of ind
+        # if death != "NA" and death > today:
+        if i.death != 'NA':
+            death = datetime.strptime(i.death, '%Y-%m-%d')
+            if (death - today_1).days > 0:
+                message = "ERROR: INDIVIDUAL: US01: " + i.id + ": death date " + i.death + " is after current date " + today
+                record_error(i.id, message, res, res_error)
 
-    #check fam's marriage date and divorce date
+    # check fam's marriage date and divorce date
     for i in fam_list:
         id = i.id
         married = i.married
         divorced = i.divorced
-        #check marriage date
+        # check marriage date
         if married != "NA" and married > today:
             message = "ERROR: FAMILY: US01: " + id + ": marriage date " + married + " is before current date " + today
-            record_error(id,message,res,res_error)
-        #check divorce date
+            record_error(id, message, res, res_error)
+        # check divorce date
         if divorced != "NA" and divorced > today:
             message = "ERROR: FAMILY: US01: " + id + ": divorce date " + married + " is before current date " + today
-            record_error(id,message,res,res_error)
-    return res,res_error
+            record_error(id, message, res, res_error)
+    return res, res_error
 
 
 # Author Qizhan Liu
@@ -103,7 +111,7 @@ def us_03(ind_list):
 # Author Mo Sun
 def us_04(fam_list):
     res = []
-    res_error= []
+    res_error = []
     for fam in fam_list:
         married = fam.married
         divorced = fam.divorced
@@ -118,13 +126,16 @@ def us_04(fam_list):
                     wrong = True
                     break
             if wrong:
-                print("ERROR: FAMILY: US04: " + fam.id + ": Divorced " + fam.divorced + " before married " + fam.married)
+                print(
+                    "ERROR: FAMILY: US04: " + fam.id + ": Divorced " + fam.divorced + " before married " + fam.married)
                 res.append(fam.id)
-                res_error.append("ERROR: FAMILY: US04: " + fam.id + ": Divorced " + fam.divorced + " before married " + fam.married)
-    return res,res_error
+                res_error.append(
+                    "ERROR: FAMILY: US04: " + fam.id + ": Divorced " + fam.divorced + " before married " + fam.married)
+    return res, res_error
+
 
 # Author Yiming Xu
-def user_story_5(test_ind_list,test_fam_list):
+def user_story_5(test_ind_list, test_fam_list):
     s1 = 'Marriage before death'
     res = []
     res_error = []
@@ -133,38 +144,40 @@ def user_story_5(test_ind_list,test_fam_list):
         death = i.death
         for item in test_fam_list:
             if item.husband_id == id and item.married > death:
-                print("ERROR: FAMILY: US05: %s: Marriage %s after Husband's death %s" %(item.id,item.married,death))
+                print("ERROR: FAMILY: US05: %s: Marriage %s after Husband's death %s" % (item.id, item.married, death))
                 res0 = "ERROR: FAMILY: US05: %s: Marriage %s after Husband's death %s" % (item.id, item.married, death)
                 res.append(item.husband_id)
                 res_error.append(res0)
 
             if item.wife_id == id and item.married > death:
-                print("ERROR: FAMILY: US05: %s: Marriage %s after Wife's death %s" %(item.id,item.married,death))
-                res0 = "ERROR: FAMILY: US05: %s: Marriage %s after Wife's death %s" %(item.id,item.married,death)
+                print("ERROR: FAMILY: US05: %s: Marriage %s after Wife's death %s" % (item.id, item.married, death))
+                res0 = "ERROR: FAMILY: US05: %s: Marriage %s after Wife's death %s" % (item.id, item.married, death)
                 res.append(s1)
                 res_error.append(res0)
-    return res,res_error
+    return res, res_error
+
 
 ## Author Yiming Xu and Mo Sun
 ## Pair Programming
-def user_story_6(test_ind_list,test_fam_list):
+def user_story_6(test_ind_list, test_fam_list):
     res = []
-    res_error=[]
+    res_error = []
     for i in test_ind_list:
         id = i.id
         death = i.death
         for item in test_fam_list:
             if item.husband_id == id and item.divorced > death:
-                print("ERROR: FAMILY: US06: %s: Divorce %s after Husband's death %s" %(item.id,item.divorced,death))
+                print("ERROR: FAMILY: US06: %s: Divorce %s after Husband's death %s" % (item.id, item.divorced, death))
                 res2 = "ERROR: FAMILY: US06: %s: Divorce %s after Husband's death %s" % (item.id, item.divorced, death)
                 res.append(item.husband_id)
                 res_error.append(res2)
             if item.wife_id == id and item.divorced > death:
-                print("ERROR: FAMILY: US05: %s: Divorce %s after Wife's death %s" %(item.id,item.divorced,death))
-                res4 = "ERROR: FAMILY: US05: %s: Divorce %s after Wife's death %s" %(item.id,item.divorced,death)
+                print("ERROR: FAMILY: US05: %s: Divorce %s after Wife's death %s" % (item.id, item.divorced, death))
+                res4 = "ERROR: FAMILY: US05: %s: Divorce %s after Wife's death %s" % (item.id, item.divorced, death)
                 res.append(item.wife_id)
                 res_error.append(res4)
-    return res,res_error
+    return res, res_error
+
 
 ## Author Yiming Xu
 def user_story_7(test_ind_list):
@@ -173,14 +186,15 @@ def user_story_7(test_ind_list):
     for i in test_ind_list:
         id = i.id
         if i.age > 150:
-            print("ERROR: INDIVIDUAL: US07: %s: More than 150 years old - Birth date %s " %(id,i.birthday))
-            res1 = "ERROR: INDIVIDUAL: US07: %s: More than 150 years old - Birth date %s " %(id,i.birthday)
+            print("ERROR: INDIVIDUAL: US07: %s: More than 150 years old - Birth date %s " % (id, i.birthday))
+            res1 = "ERROR: INDIVIDUAL: US07: %s: More than 150 years old - Birth date %s " % (id, i.birthday)
             res.append(id)
             res_error.append(res1)
-    return res,res_error
+    return res, res_error
+
 
 # Author Yiming Xu
-def user_story_8(test_ind_list,test_fam_list):
+def user_story_8(test_ind_list, test_fam_list):
     res = []
     res_error = []
     for i in test_ind_list:
@@ -188,11 +202,13 @@ def user_story_8(test_ind_list,test_fam_list):
         birth = i.birthday
         for item in test_fam_list:
             if id in item.children and item.married > birth:
-                res0 = 'ANOMALY: FAMILY: US08: %s: Child %s born before parents marriage on %s' %(item.id,id,item.married)
+                res0 = 'ANOMALY: FAMILY: US08: %s: Child %s born before parents marriage on %s' % (
+                    item.id, id, item.married)
                 print(res0)
                 res_error.append(res0)
                 res.append(item.id)
-    return res,res_error
+    return res, res_error
+
 
 # Author Shaopeng Ge
 def user_story_9(ind_list):
@@ -204,19 +220,21 @@ def user_story_9(ind_list):
             for kid in ind.child:
                 for i in ind_list:
                     if i.id == kid:
-                        birthday = i.birthday 
+                        birthday = i.birthday
                         if ind.gender == 'M':
-                            if (datetime.strptime(birthday, '%Y-%m-%d') > (datetime.strptime(death, '%Y-%m-%d') + timedelta(days=270))):
+                            if (datetime.strptime(birthday, '%Y-%m-%d') > (
+                                    datetime.strptime(death, '%Y-%m-%d') + timedelta(days=270))):
                                 message = "ERROR: INDIVIDUAL: US09: " + i.id + ": birthday " + birthday + " is not before 9 months after father's death " + death
-                                record_error(i.id,message,res,res_error)
+                                record_error(i.id, message, res, res_error)
                         else:
                             if death < birthday:
                                 message = "ERROR: INDIVIDUAL: US09: " + i.id + ": birthday " + birthday + " is after mother's death " + death
-                                record_error(i.id,message,res,res_error)
+                                record_error(i.id, message, res, res_error)
     return res, res_error
-                            
+
+
 # Author Shaopeng Ge
-def user_story_10(ind_list,fam_list):
+def user_story_10(ind_list, fam_list):
     res = []
     res_error = []
     for fam in fam_list:
@@ -227,18 +245,21 @@ def user_story_10(ind_list,fam_list):
             for ind in ind_list:
                 if ind.id == Husband:
                     birthday = ind.birthday
-                    if (datetime.strptime(marriage, '%Y-%m-%d') < (datetime.strptime(birthday, '%Y-%m-%d') + timedelta(days=14*365))):
+                    if (datetime.strptime(marriage, '%Y-%m-%d') < (
+                            datetime.strptime(birthday, '%Y-%m-%d') + timedelta(days=14 * 365))):
                         message = "ERROR: INDIVIDUAL: US10: " + ind.id + ": marriage " + marriage + " before 14 years old"
-                        record_error(ind.id,message,res,res_error)
+                        record_error(ind.id, message, res, res_error)
                 if ind.id == Wife:
                     birthday = ind.birthday
-                    if (datetime.strptime(marriage, '%Y-%m-%d') < (datetime.strptime(birthday, '%Y-%m-%d') + timedelta(days=14*365))):
+                    if (datetime.strptime(marriage, '%Y-%m-%d') < (
+                            datetime.strptime(birthday, '%Y-%m-%d') + timedelta(days=14 * 365))):
                         message = "ERROR: INDIVIDUAL: US10: " + ind.id + ": marriage " + marriage + " before 14 years old"
-                        record_error(ind.id,message,res,res_error)
+                        record_error(ind.id, message, res, res_error)
     return res, res_error
 
+
 # Author Qizhan Liu
-def user_story_11(ind_list,fam_list):
+def user_story_11(ind_list, fam_list):
     res = []
     res_error = []
     for fam in fam_list:
@@ -253,8 +274,8 @@ def user_story_11(ind_list,fam_list):
                         for fam2 in fam_list:
                             if fam2.wife_id == spouse_id:
                                 if fam2.married < divorced:
-                                    message = "ERROR: FAMILY: US011: in " + fam.id + ", "+ ind.id + " remarriage " + fam2.married + " before divorce "+ divorced
-                                    record_error(ind.id,message,res,res_error)
+                                    message = "ERROR: FAMILY: US011: in " + fam.id + ", " + ind.id + " remarriage " + fam2.married + " before divorce " + divorced
+                                    record_error(ind.id, message, res, res_error)
                                     break
                 if ind.id == wife_id:
                     spouse_id = ind.spouse.pop()
@@ -262,9 +283,10 @@ def user_story_11(ind_list,fam_list):
                         for fam2 in fam_list:
                             if fam2.husband_id == spouse_id:
                                 if fam2.married < divorced:
-                                    message = "ERROR: FAMILY: US011: in " + fam.id + ", "+ ind.id + " remarriage " + fam2.married + " before divorce "+ divorced
-                                    record_error(ind.id,message,res,res_error)
+                                    message = "ERROR: FAMILY: US011: in " + fam.id + ", " + ind.id + " remarriage " + fam2.married + " before divorce " + divorced
+                                    record_error(ind.id, message, res, res_error)
     return res, res_error
+
 
 # Author Qizhan Liu
 def user_story_12(ind_list):
@@ -276,18 +298,22 @@ def user_story_12(ind_list):
                 for i in ind_list:
                     if i.id == kid:
                         if ind.gender == 'F':
-                            if ((datetime.strptime(i.birthday, '%Y-%m-%d') - datetime.strptime(ind.birthday, '%Y-%m-%d')) > timedelta(days=365*60)):
+                            if ((datetime.strptime(i.birthday, '%Y-%m-%d') - datetime.strptime(ind.birthday,
+                                                                                               '%Y-%m-%d')) > timedelta(
+                                days=365 * 60)):
                                 message = "ERROR: INDIVIDUAL: US012: " + ind.id + " is more than 60 years older than her child " + i.id
-                                record_error(ind.id,message,res,res_error)
+                                record_error(ind.id, message, res, res_error)
                         else:
-                            if ((datetime.strptime(i.birthday, '%Y-%m-%d') - datetime.strptime(ind.birthday, '%Y-%m-%d')) > timedelta(days=365*80)):
+                            if ((datetime.strptime(i.birthday, '%Y-%m-%d') - datetime.strptime(ind.birthday,
+                                                                                               '%Y-%m-%d')) > timedelta(
+                                days=365 * 80)):
                                 message = "ERROR: INDIVIDUAL: US012: " + ind.id + " is more than 80 years older than his child " + i.id
-                                record_error(ind.id,message,res,res_error)
+                                record_error(ind.id, message, res, res_error)
     return res, res_error
 
 
 # Author Mo Sun
-def user_story_13(ind_list,fam_list):
+def user_story_13(ind_list, fam_list):
     res = []
     res_error = []
     for fam in fam_list:
@@ -300,17 +326,23 @@ def user_story_13(ind_list,fam_list):
                         children.append(ind.id)
                         birthday.append(ind.birthday)
             if len(birthday) > 1:
-                for i in range(len(birthday)-1):
-                    for j in range(i+1,len(birthday)):
-                        datedif1 = (abs(datetime.strptime(birthday[i], '%Y-%m-%d') - datetime.strptime(birthday[j], '%Y-%m-%d')) >= timedelta(days=2))
-                        datedif2 = (abs(datetime.strptime(birthday[i], '%Y-%m-%d') - datetime.strptime(birthday[j], '%Y-%m-%d')) < timedelta(days=240))
-                        if datedif1 and datedif2 :
-                            message = "ERROR: FAMILY: US013: in " + fam.id + ", Siblings spacing between " + children[i] + " and " + children[j] + " are wrong"
-                            record_error(fam.id,message,res,res_error)
+                for i in range(len(birthday) - 1):
+                    for j in range(i + 1, len(birthday)):
+                        datedif1 = (abs(datetime.strptime(birthday[i], '%Y-%m-%d') - datetime.strptime(birthday[j],
+                                                                                                       '%Y-%m-%d')) >= timedelta(
+                            days=2))
+                        datedif2 = (abs(datetime.strptime(birthday[i], '%Y-%m-%d') - datetime.strptime(birthday[j],
+                                                                                                       '%Y-%m-%d')) < timedelta(
+                            days=240))
+                        if datedif1 and datedif2:
+                            message = "ERROR: FAMILY: US013: in " + fam.id + ", Siblings spacing between " + children[
+                                i] + " and " + children[j] + " are wrong"
+                            record_error(fam.id, message, res, res_error)
     return res, res_error
 
+
 # Author Mo Sun
-def user_story_14(ind_list,fam_list):
+def user_story_14(ind_list, fam_list):
     res = []
     res_error = []
     for fam in fam_list:
@@ -324,19 +356,21 @@ def user_story_14(ind_list,fam_list):
                         children.append(ind.id)
                         birthday.append(ind.birthday)
             if len(birthday) > 5:
-                for i in range(len(birthday)-4):
+                for i in range(len(birthday) - 4):
                     if find == True:
                         break
                     count = 1
-                    for j in range(i+1,len(birthday)):
+                    for j in range(i + 1, len(birthday)):
                         if (datetime.strptime(birthday[i], '%Y-%m-%d') == datetime.strptime(birthday[j], '%Y-%m-%d')):
                             count += 1
                         if count > 5:
-                            message = "ERROR: FAMILY: US014: in " + fam.id + ", more than five siblings borned at the same time " + birthday[i]
-                            record_error(fam.id,message,res,res_error)
-                            find = True  
-                            break              
+                            message = "ERROR: FAMILY: US014: in " + fam.id + ", more than five siblings borned at the same time " + \
+                                      birthday[i]
+                            record_error(fam.id, message, res, res_error)
+                            find = True
+                            break
     return res, res_error
+
 
 # Author Yiming Xu
 def user_story_15(fam_list):
@@ -345,11 +379,12 @@ def user_story_15(fam_list):
     for fam in fam_list:
         if len(fam.children) >= 15:
             message = "ERROR: FAMILY: US015: in " + fam.id + ", more than 14 siblings in a family"
-            record_error(fam.id,message,res,res_error)
+            record_error(fam.id, message, res, res_error)
     return res, res_error
 
+
 # Author Yiming Xu
-def user_story_16(ind_list,fam_list):
+def user_story_16(ind_list, fam_list):
     res = []
     res_error = []
     for fam in fam_list:
@@ -358,7 +393,7 @@ def user_story_16(ind_list,fam_list):
             if ind.id in fam.children and ind.gender == "M":
                 if ind.name.split('/')[1] != familyName:
                     message = "ERROR: FAMILY: US016: in " + fam.id + ", not all male members of a family have the same last name"
-                    record_error(fam.id,message,res,res_error)
+                    record_error(fam.id, message, res, res_error)
                     break
     return res, res_error
 
@@ -373,7 +408,8 @@ def user_story_17(fam_list):
                 message = "ERROR: FAMILY: US017: in %s, wife (%s) married with her children" % (fam.id, fam.wife_id)
                 record_error(fam.id, message, error_ids, error_messages)
             if fam.wife_id in fam.children:
-                message = "ERROR: FAMILY: US017: in %s, husband (%s) married with his children" % (fam.id, fam.husband_id)
+                message = "ERROR: FAMILY: US017: in %s, husband (%s) married with his children" % (
+                    fam.id, fam.husband_id)
                 record_error(fam.id, message, error_ids, error_messages)
 
     return error_ids, error_messages
@@ -438,12 +474,14 @@ def user_story_20(fam_list):
             if fam.husband_id in fam.children:
                 for fam2 in fam_list:
                     if fam2.husband_id != fam.husband_id and fam.husband_id in fam2.children:
-                        message = "ERROR: FAMILY: US020: in %s, aunts (%s) married with her children" % (fam.id, fam.wife_id)
+                        message = "ERROR: FAMILY: US020: in %s, aunts (%s) married with her children" % (
+                            fam.id, fam.wife_id)
                         record_error(fam.id, message, error_ids, error_messages)
             if fam.wife_id in fam.children:
                 for fam2 in fam_list:
                     if fam2.wife_id == fam.wife_id and fam.wife_id in fam2.children:
-                        message = "ERROR: FAMILY: US020: in %s, uncles (%s) married with his children" % (fam.id, fam.husband_id)
+                        message = "ERROR: FAMILY: US020: in %s, uncles (%s) married with his children" % (
+                            fam.id, fam.husband_id)
                         record_error(fam.id, message, error_ids, error_messages)
 
     return error_ids, error_messages
@@ -518,7 +556,7 @@ def user_story_24(fam_list):
     for married in duplicate_married:
         candi_fam = []
         for fam in fam_list:
-            if fam.married  == married:
+            if fam.married == married:
                 candi_fam.append(fam)
         for i in range(len(candi_fam)):
             first_fam = candi_fam[i]
@@ -531,6 +569,192 @@ def user_story_24(fam_list):
                     record_error(first_fam.id, message, error_ids, error_messages)
                     error_ids.append(second_fam.id)
 
+    return error_ids, error_messages
+
+
+# No more than one child with the same name and birth date should appear in a family
+def user_story_25(ind_list, fam_list):
+    error_ids = []
+    error_messages = []
+
+    for fam in fam_list:
+        if len(fam.children) < 2:
+            continue
+        id = [id for id in fam.children]
+        name = []
+        birth = []
+        for idx in id:
+            for m in ind_list:
+                if idx == m.id:
+                    name.append(m.name)
+
+        for idx_1 in id:
+            for n in ind_list:
+                if idx_1 == n.id:
+                    birth.append(n.birthday)
+        duplicate_names = [item for item, count in collections.Counter(name).items() if count > 1]
+        duplicate_births = [item for item, count in collections.Counter(birth).items() if count > 1]
+
+        for name in duplicate_names:
+            message = "ERROR: Children: US025: Children name (%s) duplicates" % name
+            record_error(name, message, error_ids, error_messages)
+        for birth in duplicate_births:
+            message = "ERROR: Children: US025: Children birth (%s) duplicates" % birth
+            record_error(birth, message, error_ids, error_messages)
+
+    return error_ids, error_messages
+
+
+# List all deceased individuals in a GEDCOM file
+def user_story_29(ind_list):
+    error_ids = []
+    error_messages = []
+
+    people = []
+    for ind in ind_list:
+        if not ind.alive:
+            people.append(ind.name)
+    for name in people:
+        message = "US029: All deceased people: (%s)" % name
+        record_error(name, message, error_ids, error_messages)
+    return error_ids, error_messages
+
+
+# List all living married people in a GEDCOM file
+def user_story_30(ind_list, fam_list):
+    error_ids = []
+    error_messages = []
+
+    married_id = []
+    people = []
+    for fam in fam_list:
+        if fam.divorced == 'NA':
+            married_id.append(fam.husband_id)
+            married_id.append(fam.wife_id)
+
+    for ind in ind_list:
+        for id in married_id:
+            if ind.id == id and ind.alive == True:
+                people.append(ind.name)
+
+    for name in people:
+        message = "US030: All living married people: (%s)" % name
+        record_error(name, message, error_ids, error_messages)
+    return error_ids, error_messages
+
+
+# List all living people over 30 who have never been married in a GEDCOM file
+def user_story_31(ind_list, fam_list):
+    error_ids = []
+    error_messages = []
+
+    people = []
+    married_id = []
+    for fam in fam_list:
+        for ind in ind_list:
+            if fam.husband_id == ind.id or fam.wife_id == ind.id:
+                married_id.append(ind.id)
+    new_married_id = []
+    for i in married_id:
+        if not i in new_married_id:
+            new_married_id.append(i)
+
+    single = []
+    for ind in ind_list:
+        if ind.alive == True and ind.age >= 30:
+            if not ind.id in married_id:
+                single.append(ind.id)
+
+    for idx in single:
+        for ind in ind_list:
+            if ind.id == idx:
+                people.append(ind.name)
+    print(people)
+    for name in people:
+        message = "US031: All living people over 30 who have never been married: (%s)" % name
+        record_error(name, message, error_ids, error_messages)
+
+    return error_ids, error_messages
+
+
+# List all multiple births in a GEDCOM file
+def user_story_32(ind_list):
+    error_ids = []
+    error_messages = []
+
+    births = [ind.birthday for ind in ind_list]
+    duplicate_births = [item for item, count in collections.Counter(births).items() if count > 1]
+
+    for birth in duplicate_births:
+        message = "Multiple Birth: INDIVIDUAL: US032: Individual birth (%s) duplicates" % birth
+        record_error(birth, message, error_ids, error_messages)
+    return error_ids, error_messages
+
+
+# List all orphaned children (both parents dead and child < 18 years old) in a GEDCOM file
+def user_story_33(ind_list, fam_list):
+    error_ids = []
+    error_messages = []
+
+    children = []
+    for fam in fam_list:
+        if len(fam.children) < 1:
+            continue
+        for ind in ind_list:
+            if fam.husband_id == ind.id and ind.alive == False:
+                for ind_1 in ind_list:
+                    if fam.wife_id == ind_1.id and ind_1.alive == False:
+                        for id in fam.children:
+                            children.append(id)
+    child_name = []
+    for child in children:
+        for ind in ind_list:
+            if child == ind.id and ind.age < 18:
+                child_name.append(ind.name)
+
+    for name in child_name:
+        message = "US033: All orphaned children: (%s)" % name
+        record_error(name, message, error_ids, error_messages)
+    return error_ids, error_messages
+
+
+# List all people in a GEDCOM file who were born in the last 30 days
+def user_story_35(ind_list):
+    error_ids = []
+    error_messages = []
+
+    names = []
+    today = str(date.today())
+
+    for ind in ind_list:
+        d1 = datetime.strptime(today, '%Y-%m-%d')
+        d2 = datetime.strptime(ind.birthday, '%Y-%m-%d')
+        if 0 <= (d1 - d2).days <= 30:
+            names.append(ind.name)
+
+    for name in names:
+        message = "US035: All people who were born in the last 30 days: (%s)" % name
+        record_error(name, message, error_ids, error_messages)
+    return error_ids, error_messages
+
+
+# List all people in a GEDCOM file who died in the last 30 days
+def user_story_36(ind_list):
+    error_ids = []
+    error_messages = []
+
+    names = []
+    today = str(date.today())
+
+    for ind in ind_list:
+        d1 = datetime.strptime(today, '%Y-%m-%d')
+        if ind.death != 'NA':
+            d2 = datetime.strptime(ind.death, '%Y-%m-%d')
+            if 0 <= (d1 - d2).days <= 30:
+                names.append(ind.name)
+    for name in names:
+        message = "US036: All people who were died in the last 30 days: (%s)" % name
+        record_error(name, message, error_ids, error_messages)
     return error_ids, error_messages
 
 
@@ -549,26 +773,28 @@ if __name__ == '__main__':
         file.write(str(fam_table))
         file.write('\n')
 
+
         def writedowm(res_error):
             for i in res_error:
                 file.write(str(i) + '\n')
 
-        writedowm(user_story_01(ind_list,fam_list)[1])
+
+        writedowm(user_story_01(ind_list, fam_list)[1])
         writedowm(us_02(ind_list, fam_list)[1])
         writedowm(us_03(ind_list)[1])
         writedowm(us_04(fam_list)[1])
-        writedowm(user_story_5(ind_list,fam_list)[1])
-        writedowm(user_story_6(ind_list,fam_list)[1])
+        writedowm(user_story_5(ind_list, fam_list)[1])
+        writedowm(user_story_6(ind_list, fam_list)[1])
         writedowm(user_story_7(ind_list)[1])
-        writedowm(user_story_8(ind_list,fam_list)[1])
+        writedowm(user_story_8(ind_list, fam_list)[1])
         writedowm(user_story_9(ind_list)[1])
-        writedowm(user_story_10(ind_list,fam_list)[1])
-        writedowm(user_story_11(ind_list,fam_list)[1])
+        writedowm(user_story_10(ind_list, fam_list)[1])
+        writedowm(user_story_11(ind_list, fam_list)[1])
         writedowm(user_story_12(ind_list)[1])
-        writedowm(user_story_13(ind_list,fam_list)[1])
-        writedowm(user_story_14(ind_list,fam_list)[1])
+        writedowm(user_story_13(ind_list, fam_list)[1])
+        writedowm(user_story_14(ind_list, fam_list)[1])
         writedowm(user_story_15(fam_list)[1])
-        writedowm(user_story_16(ind_list,fam_list)[1])
+        writedowm(user_story_16(ind_list, fam_list)[1])
         writedowm(user_story_17(fam_list)[1])
         writedowm(user_story_18(fam_list)[1])
         writedowm(user_story_19(ind_list, fam_list)[1])
@@ -577,3 +803,11 @@ if __name__ == '__main__':
         writedowm(user_story_22(ind_list, fam_list)[1])
         writedowm(user_story_23(ind_list)[1])
         writedowm(user_story_24(fam_list)[1])
+        writedowm(user_story_25(ind_list, fam_list)[1])
+        writedowm(user_story_29(ind_list)[1])
+        writedowm(user_story_30(ind_list, fam_list)[1])
+        writedowm(user_story_31(ind_list, fam_list)[1])
+        writedowm(user_story_32(ind_list)[1])
+        writedowm(user_story_33(ind_list, fam_list)[1])
+        writedowm(user_story_35(ind_list)[1])
+        writedowm(user_story_36(ind_list)[1])
